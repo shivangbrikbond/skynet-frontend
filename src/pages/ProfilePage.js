@@ -32,7 +32,7 @@ export default function ProfilePage() {
                         <EducationCardsSection Title='Experience' skills_display='hidden' edit={true} PURPOSE={'FREELANCER'} userId={profile.userId} />
                         {/* <ExperienceCardsSection Title='Experience' /> */}
                         {/* <div className='relative flex flex-col gap-9 justify-between items-center mt-1'> */}
-                        <TimeLineCardsSection Title='Time Line' cards_bg='' edit_display='hidden' time_display='flex' add_display='hidden' skills_display='hidden' duration_display='hidden' font_weight='font-normal' line_color='bg-[#000000]' userId={profile.userId} />
+                        <TimeLineCardsSection Title='Time Line' cards_bg='' edit_display='hidden' time_display='flex' add_display='hidden' skills_display='hidden' duration_display='hidden' font_weight='font-normal' line_color='bg-[#000000]' userId={profile.userId} edit={true} />
                         {/* </div> */}
                     </div>
                 </div>

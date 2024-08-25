@@ -12,6 +12,8 @@ function BioEdit() {
   const [aspirations, setAspirations] = useState('')
   const [profilePic, setProfilePic] = useState('')
   const [file, setFile] = useState('')
+  const [submitButton, setSubmitButton] = useState('Submit')
+  const [cancelButton, setCancelButton] = useState('Cancel')
 
   const userdata = useSelector((state) => state.profile.profile);
   const status = useSelector((state) => state.auth.status);
@@ -33,6 +35,9 @@ function BioEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    setSubmitButton('Loading....')
+    setCancelButton('Loading....')
 
     const S3_BUCKET = "skynect";
 
@@ -94,6 +99,7 @@ function BioEdit() {
 
   const handleCancel = () => {
     navigate('/profile')
+    window.location.reload()
   }
 
   return (
@@ -104,7 +110,11 @@ function BioEdit() {
         <form className='w-[100%]'>
           <h5 className='register-heading lg:text-[25px] md:text-[20px] text-[18px] lg:w-[219px] md:w-[200px] w-[190px]' style={{ minWidth: '219px' }}> Edit Profile :</h5>
           <br />
-          <img src={profilePic} style={{ borderColor: 'grey', borderWidth: '2px' }}></img>
+          {/* <img src={profilePic} style={{ borderColor: 'grey', borderWidth: '2px' }}></img> */}
+          <div className='w-[140px] h-[140px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+            <img src={profilePic} alt="profileimage"
+              style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
+          </div>
           <input className='h-[58px]' placeholder='Choose Photo' type="file" onChange={handlePictureChange} />
           <br />
           <label for='aspiration' className='text-[30px]'>Tagline :
@@ -138,8 +148,8 @@ function BioEdit() {
           /> */}
           <br />
           <div className='flex flex-row justify-evenly gap-10'>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
-            <button type="cancel" onClick={handleCancel}>Cancel</button>
+            <button type="submit" onClick={handleSubmit}>{submitButton}</button>
+            <button type="cancel" onClick={handleCancel}>{cancelButton}</button>
           </div>
         </form>
 

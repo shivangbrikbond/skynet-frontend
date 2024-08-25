@@ -10,8 +10,9 @@ function EducationAddForm(PURPOSE) {
   const navigate = useNavigate('');
   const userId = localStorage.getItem('skyn_userId')
 
-  const status = useSelector((state) => state.profile.status);
+  const status = useSelector((state) => state.profile.update_status);
   const error = useSelector((state) => state.profile.error);
+  const [showError, setShowError] = useState(false)
 
   const [formData, setFormData] = useState({
     userId: userId,
@@ -22,12 +23,12 @@ function EducationAddForm(PURPOSE) {
     purpose: PURPOSE.PURPOSE,
   });
 
-  /*useEffect(() => {
+  useEffect(() => {
     if (status === 'succeeded') {
       navigate('/profile')
     }
-  }, [status, navigate])
-  */
+  }, [status, dispatch])
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(value);
@@ -40,9 +41,9 @@ function EducationAddForm(PURPOSE) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(CreatHistory(formData))
-    if (status === 'succeeded') {
-      navigate('/profile')
-    }
+    // if (status === 'succeeded') {
+    //   navigate('/profile')
+    // }
     console.log(formData);
   };
 
@@ -61,54 +62,62 @@ function EducationAddForm(PURPOSE) {
   return (
     <div>
       <div className='ed-container'>
-        <form class="ed-form" onSubmit={handleSubmit}>
-          <p class="ed-title">Add Education</p>
-          <p class="ed-message"></p>
-          <div class="flex">
-            <label className=''>
-              <input required="" placeholder="" type="date" class="ed-input " name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-              />
-              <span>startDate</span>
-            </label>
+        <>
 
-            <label>
-              <input required="" placeholder="" type="date" class="ed-input" name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-              />
-              <span>endDate</span>
-            </label>
+          <div class="container mx-auto p-4 flex items-center justify-center h-full">
+            <div class="max-w-[350px] w-full">
+              <h1 style={{ marginBottom: "30px", fontSize: '30px' }}>Add Details</h1>
+              {/* <!-- Form - create your endpoint on Getform and start using this form --> */}
+              <form class="w-full flex flex-col justify-center" action="your-getform-endpoint" method="POST" enctype="multipart/form-data">
+                <div class="flex">
+                  <label className=''>
+                    <span>startDate</span>
+                    <input required placeholder="" type="date" class="ed-input " name="startDate"
+                      value={formData.startDate}
+                      onChange={handleChange}
+                      className='border border-gray-200'
+                    />
+                  </label>
+
+                  <label>
+                    <span>endDate</span>
+                    <input required={true} placeholder="" type="date" class="ed-input" name="endDate"
+                      value={formData.endDate}
+                      onChange={handleChange}
+                      className='border border-gray-200'
+                    />
+                  </label>
+                </div>
+                <br />
+                <input
+                  name="title"
+                  type="text"
+                  placeholder="Title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                  class="w-full px-3 py-2 mb-2 transition-all border border-gray-200 rounded-md outline-blue-600/50 hover:border-blue-600/30"
+                />
+
+                <textarea
+                  name="description"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                  class="w-full px-3 py-2 mb-2 resize-none transition-all border border-gray-200 rounded-md outline-blue-600/50 hover:border-blue-600/30"
+                ></textarea>
+                <button type="submit" class="w-full mt-2 p-2.5 text-sm font-medium text-white bg-blue-600 rounded-md" onClick={handleSubmit}>Submit</button>
+                {showError === true ? <p style={{ color: 'red' }}>{error ? error.message : 'Unable to create histroy'}</p> : <></>}
+              </form>
+
+            </div>
           </div>
+        </>
 
-          <label>
-            <input required="" placeholder="" type="text" class="ed-input" name="title"
-              value={formData.title}
-              onChange={handleChange}
-            />
-            <span>title</span>
-          </label>
-
-          <label>
-            <input required="" placeholder="" type="text" class="ed-input" name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-            <span>description</span>
-          </label>
-          {/* <label>
-            <input required="" placeholder="" type="text" class="ed-input" name="purpose"
-              value={formData.purpose}
-              onChange={handleChange} />
-            <span>purpose</span>
-          </label> */}
-          <button type="submit" class="ed-submit bg-blue-600">Submit</button>
-          <button class="ed-cancel bg-red-600" onClick={handleCancel}>Cancel</button>
-          <p class="ed-signin"><a href="#"></a> </p>
-        </form>
-        {status === 'loading' && <p>Loading...</p>}
-        {status === 'failed' && <p style={{ color: 'red' }}>{error ? error.message : 'Unable to create histroy'}</p>}
       </div>
     </div>
   )

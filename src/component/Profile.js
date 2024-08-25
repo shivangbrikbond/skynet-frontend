@@ -23,7 +23,7 @@ export default function Profile() {
         <div className='relative flex flex-row justify-center'>
           {/* <img src={backimg} alt="backgroundimage" width="100%" height="50px" className='h-[100px] mx-auto absolute' /> */}
           <div className='w-[120px] h-[120px] ' style={{ marginTop: '40px', position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
-            <img src={profile.profilePic} alt="profileimage"
+            <img src={profile.profilePic ? profile.profilePic : ''} alt="profileimage"
               style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
           </div>
 
@@ -38,8 +38,7 @@ export default function Profile() {
         </div>
 
         <div className='w-337 h-45 font-normal text-base leading-none flex items-center justify-center text-center text-black relative'>
-          <h2 className='absolute top-[60px] z-10 px-5'>Co-founder and CEO of amazon ||
-            Ted-ex Speaker || Grammy Award || Oscar Winner</h2>
+          <h2 className='absolute top-[60px] z-10 px-5'>{profile.aspirations}</h2>
         </div>
 
       </div></Link>

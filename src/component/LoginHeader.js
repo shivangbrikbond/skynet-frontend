@@ -9,6 +9,7 @@ function LoginHeader() {
             <h1 className='company-heading'>SKYNECT</h1>
             <pre>Network . Connect . Grow</pre>
         </div>
+
     );
 }
 

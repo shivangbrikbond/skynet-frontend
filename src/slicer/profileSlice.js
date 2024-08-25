@@ -9,6 +9,7 @@ const initialState = {
     error: null,
     history: [],
     timeLine: [],
+    update_status: 'idle'
 };
 
 
@@ -38,7 +39,7 @@ export const ViewUser = createAsyncThunk('profile/ViewUser', async (userid) => {
 });
 
 export const updateUser = createAsyncThunk('profile/updateUser', async (userData) => {
-    const response = await axios.put(`${baseUrl}/info/update`, userData, {
+    const response = await axios.put(`${baseUrl}/update/info`, userData, {
         headers: {
             'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
             'Content-Type': 'application/json'
@@ -84,18 +85,6 @@ export const fetchHistory = createAsyncThunk('profile/getHistroy', async (userId
     return response.data;
 });
 
-// export const fetchUserHistory = createAsyncThunk('profile/getUserHistroy', async (userId) => {
-//     // const userId = localStorage.getItem('skyn_userId')
-//     const response = await axios.get(`${baseUrl}/history/get/${userId}`, {
-//         headers: {
-//             'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
-//             'Content-Type': 'application/json'
-//         },
-//     });
-//     console.log(response.data, userId)
-//     return response.data;
-// });
-
 export const CreatTimeLine = createAsyncThunk('profile/CreatTimeLine', async (TimeLineData) => {
     const response = await axios.post(`${baseUrl}/timelineEvent/create`, TimeLineData, {
         headers: {
@@ -109,7 +98,6 @@ export const CreatTimeLine = createAsyncThunk('profile/CreatTimeLine', async (Ti
 });
 
 export const fetchTimeLine = createAsyncThunk('profile/fetchTimeLine', async (userId) => {
-    // const userId = localStorage.getItem('skyn_userId')
 
     const response = await axios.get(`${baseUrl}/timelineEvent/get/${userId}`, {
         headers: {
@@ -134,6 +122,8 @@ export const fetchUserTimeLine = createAsyncThunk('profile/fetchTimeLine', async
     return response.data;
 });
 
+// export const deleteHistory = createAsyncThunk()
+
 
 const profileSlice = createSlice({
     name: 'posts',
@@ -147,6 +137,7 @@ const profileSlice = createSlice({
             .addCase(fetchUser.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.profile = action.payload.body;
+                state.update_status = 'idle'
             })
             .addCase(fetchUser.rejected, (state, action) => {
                 state.status = 'failed';
@@ -156,40 +147,40 @@ const profileSlice = createSlice({
 
 
             .addCase(CreatHistory.pending, (state) => {
-                state.status = 'loading';
+                state.update_status = 'loading';
             })
             .addCase(CreatHistory.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.update_status = 'succeeded';
                 state.history = action.payload;
             })
             .addCase(CreatHistory.rejected, (state, action) => {
-                state.status = 'failed';
+                state.update_status = 'failed';
                 state.error = action.error.message;
                 console.log(state.error)
 
             })
 
             .addCase(fetchHistory.pending, (state) => {
-                state.status = 'loading';
+                state.update_status = 'loading';
             })
             .addCase(fetchHistory.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.update_status = 'succeeded';
                 state.history = action.payload.body;
             })
             .addCase(fetchHistory.rejected, (state, action) => {
-                state.status = 'failed';
+                state.update_status = 'failed';
                 state.error = action.error.message;
             })
 
             .addCase(CreatTimeLine.pending, (state) => {
-                state.status = 'loading';
+                state.update_status = 'loading';
             })
             .addCase(CreatTimeLine.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.update_status = 'succeeded';
                 state.timeLine = action.payload;
             })
             .addCase(CreatTimeLine.rejected, (state, action) => {
-                state.status = 'failed';
+                state.update_status = 'failed';
                 state.error = action.error.message;
                 console.log(state.error)
 
@@ -221,13 +212,14 @@ const profileSlice = createSlice({
             })
 
             .addCase(updateUser.pending, (state) => {
-                state.status = 'loading';
+                state.update_status = 'loading';
             })
             .addCase(updateUser.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.update_status = 'succeeded';
+                console.log("skdvkcsmkvmskmo")
             })
             .addCase(updateUser.rejected, (state, action) => {
-                state.status = 'failed';
+                state.update_status = 'failed';
                 state.error = action.error.message;
                 console.log(state.error)
 

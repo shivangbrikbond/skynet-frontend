@@ -4,6 +4,7 @@ import { FaReply, FaUserCircle, FaHeart, FaArrowAltCircleRight } from "react-ico
 
 function CommentBox({ postId }) {
   const user_id = localStorage.getItem('skyn_userId');
+  const baseUrl = process.env.REACT_APP_API_URL
 
   const [comments, setComments] = useState([]);
   // const [commentCount, setCommentCount] = useState(c)
@@ -39,7 +40,7 @@ function CommentBox({ postId }) {
       setLoading(true);
       const pageNo = 1;
       const pageSize = 10;
-      const response = await axios.get(`http://localhost:6898/api/v1/users/comment/get/${pageNo}/${pageSize}?parentCommentId&postId=${postId}`, {
+      const response = await axios.get(`${baseUrl}/comment/get/${pageNo}/${pageSize}?parentCommentId&postId=${postId}`, {
         headers: {
           'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
           'Content-Type': 'application/json'
@@ -58,7 +59,7 @@ function CommentBox({ postId }) {
     try {
       const pageNo = 1;
       const pageSize = 10;
-      const response = await axios.get(`http://localhost:6898/api/v1/users/comment/get/${pageNo}/${pageSize}?parentCommentId=${parentCommentId}&postId=`, {
+      const response = await axios.get(`${baseUrl}/comment/get/${pageNo}/${pageSize}?parentCommentId=${parentCommentId}&postId=`, {
         headers: {
           'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
           'Content-Type': 'application/json'
@@ -105,7 +106,7 @@ function CommentBox({ postId }) {
     };
 
     try {
-      await axios.post(`http://localhost:6898/api/v1/users/comment/create`, updatedFormData, {
+      await axios.post(`${baseUrl}/comment/create`, updatedFormData, {
         headers: {
           'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
           'Content-Type': 'application/json'
@@ -128,7 +129,7 @@ function CommentBox({ postId }) {
     };
     console.log(formDataCoc)
     try {
-      const response = await axios.post(`http://localhost:6898/api/v1/users/comment/create`, updatedFormDataCoc, {
+      const response = await axios.post(`${baseUrl}/comment/create`, updatedFormDataCoc, {
         headers: {
           'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
           'Content-Type': 'application/json'

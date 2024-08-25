@@ -23,11 +23,13 @@ function RegisterForm() {
 
   const navigate = useNavigate();
 
-  const [errormsg, setError] = useState('')
+  const [warn, setWarn] = useState(true);
 
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.auth.status);
+  const status_register = useSelector((state) => state.auth.register_status);
   const error = useSelector((state) => state.auth.error);
+  const message = useSelector((state) => state.auth.message)
+  const [errormsg, setError] = useState('')
 
 
   const handleChange = (e) => {
@@ -39,14 +41,19 @@ function RegisterForm() {
   };
 
   useEffect(() => {
-    if (status === 'succeeded') {
-      // navigate('/login')
+    if (status_register === 'succeeded') {
+      navigate('/login')
     }
-  }, [status])
+    else {
+      setError(message);
+      console.log(errormsg, "this is error")
+    }
+  }, [status_register])
 
   const enterOtp = async (e) => {
     e.preventDefault();
-    setShowFirstComponent(false)
+    if (form.phone.length != 10) setWarn(false);
+    else setShowFirstComponent(false)
   }
 
   const handleSubmit = async (e) => {
@@ -54,7 +61,6 @@ function RegisterForm() {
     console.log(form)
     if (otp == 1234) {
       dispatch(registerUser(form))
-      navigate('/login')
     }
     else setError("Wrong Otp");
     console.log("error" + error)
@@ -297,6 +303,10 @@ function RegisterForm() {
                 onChange={handleChange}
                 required
               />
+              {warn == false && <div class="warning-msg">
+                <i class="fa fa-warning"></i>
+                Incorrect value.
+              </div>}
               <select
                 name="purpose"
                 value={form.purpose}
@@ -335,8 +345,18 @@ function RegisterForm() {
 
               <button type="submit" onClick={enterOtp}>Submit</button>
             </form>
-            {status === 'loading' && <p>Loading...</p>}
-            {status === 'failed' && <p style={{ color: 'red' }}>{error ? error.message : 'Registration failed'}</p>}
+            {errormsg === 'loading' && <div class="info-msg">
+              <i class="fa fa-info-circle"></i>
+              Give us time to process.
+            </div>}
+            {errormsg === 'failed' && <div class="error-msg">
+              <i class="fa fa-times-circle"></i>
+              Something went wrong.
+            </div>}
+            {errormsg === 'warn' && <div class="warning-msg">
+              <i class="fa fa-warning"></i>
+              This is a warning message.
+            </div>}
             {/* {status === 'succeeded' && <p>sucessfully registerd</p>} */}
           </div>
         ) : (
@@ -345,8 +365,19 @@ function RegisterForm() {
               <h4 className='text-xl font-medium'>Verify OTP</h4>
             </div>
             <div>
-              <input placeholder='otp' type="number" className='p-4 py-2 border-2 rounded-full' value={otp} onChange={(e) => setOtp(e.target.value)} />
-              <p>{errormsg}</p>
+              <input placeholder='otp' type="text" className='p-4 py-2 border-2 rounded-full' value={otp} onChange={(e) => setOtp(e.target.value)} />
+              {status_register === 'loading' && <div class="info-msg">
+                <i class="fa fa-info-circle"></i>
+                Give us time to process.
+              </div>}
+              {errormsg !== '' && errormsg !== 'existing user or data' ? <div class="error-msg">
+                <i class="fa fa-times-circle"></i>
+                Something went wrong.
+              </div> : <></>}
+              {errormsg === 'existing user or data' && <div class="warning-msg">
+                <i class="fa fa-warning"></i>
+                This user already exists.
+              </div>}
             </div>
             <div className='mt-6 px-6 py-1 bg-sky-400 rounded-lg'>
               <button className='text-center ' onClick={handleSubmit}>Submit</button>
@@ -354,6 +385,7 @@ function RegisterForm() {
             <div className='mt-4 px-6 py-1 bg-red-400 rounded-lg' onClick={() => setShowFirstComponent(true)}>
               <button className='text-center ' >Back</button>
             </div>
+
           </div>
         )
       }

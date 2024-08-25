@@ -133,9 +133,10 @@ const Navbar = ({ activeButton, setActiveButton }) => {
                 to="/profile"
                 className="flex flex-col justify-center items-center"
               >
-                <img src={picture} alt="profile" width={33} height={31}
-                  style={{ borderRadius: '100%' }}
-                />
+                <div className='w-[38px] h-[38px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+                  <img src={picture} alt="profileimage"
+                    style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
+                </div>
                 <p className="font-normal text-sm pt-1">Profile</p>
               </Link>
             </li>
@@ -164,9 +165,10 @@ const Navbar = ({ activeButton, setActiveButton }) => {
               className="flex flex-col justify-center items-center mb-2"
               onClick={() => setNavOpen(!navOpen)}
             >
-              <img src={picture} alt="profile" width={34} height={32}
-                style={{ borderRadius: '100%' }}
-              />
+              <div className='w-[38px] h-[38px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+                <img src={picture} alt="profileimage"
+                  style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
+              </div>
             </Link>
           </div>
           <div

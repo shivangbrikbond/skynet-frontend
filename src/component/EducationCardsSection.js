@@ -45,7 +45,7 @@ export default function EducationCardsSection({ Title, add_display = 'flex', lin
                         Object.values(profileHistry).map((data) => {
                             if (data.purpose === PURPOSE)
                                 return (
-                                    <EducationCards title={data.title} id={data.id} startDate={data.startDate} endDate={data.endDate} description={data.description} cards_bg={cards_bg} edit_display={edit_display} line_color={line_color} duration_display={duration_display} time_display={time_display} skills_display={skills_display} font_weight={font_weight} edit />
+                                    <EducationCards title={data.title} id={data.id} startDate={data.startDate} endDate={data.endDate} description={data.description} cards_bg={cards_bg} edit_display={edit_display} line_color={line_color} duration_display={duration_display} time_display={time_display} skills_display={skills_display} font_weight={font_weight} edit={edit} />
                                 )
 
                         })

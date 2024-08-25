@@ -9,9 +9,10 @@ const Suggestions = ({ profileImage, Name, Post, purpose, userId }) => {
     }
 
     return (
-        <button className='flex flex-row items-center gap-2 justify-start md:gap-4' style={{ marginLeft: "20" + "px" }} onClick={handleClick}>
-            <div className='w-11 h-11 overflow-hidden flex justify-end rounded-full md:w-16 md:h-16'>
-                <img src={profileImage} width={'100%'} height={'100%'} alt='profile' />
+        <button className='flex flex-row items-center gap-2 justify-start md:gap-4 hover:scale-105' style={{ marginLeft: "20" + "px" }} onClick={handleClick}>
+            <div className='w-[65px] h-[65px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+                <img src={profileImage} alt="profileimage"
+                    style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
             </div>
             <div className='flex flex-col items-start' style={{ maxWidth: '200px' }}>
                 <div className='flex flex-row gap-5 justify-between'>

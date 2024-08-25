@@ -1,151 +1,154 @@
 .ed-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    margin-top: 150px;
+  margin-top: 120px;
 }
 
 .ed-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 350px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    position: relative;
-  }
-  
-  .ed-title {
-    font-size: 28px;
-    color: royalblue;
-    font-weight: 600;
-    letter-spacing: -1px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-  }
-  
-  .ed-title::before,.ed-title::after {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    left: 0px;
-    background-color: royalblue;
-  }
-  
-  .ed-title::before {
-    width: 18px;
-    height: 18px;
-    background-color: royalblue;
-  }
-  
-  .ed-title::after {
-    width: 18px;
-    height: 18px;
-    animation: pulse 1s linear infinite;
-  }
-  
-  .ed-message, .ed-signin {
-    color: rgba(88, 87, 87, 0.822);
-    font-size: 14px;
-  }
-  
-  .ed-signin {
-    text-align: center;
-  }
-  
-  .ed-signin a {
-    color: royalblue;
-  }
-  
-  .ed-signin a:hover {
-    text-decoration: underline royalblue;
-  }
-  
-  .ed-flex {
-    display: flex;
-    width: 100%;
-    gap: 6px;
-  }
-  
-  .ed-form label {
-    position: relative;
-  }
-  
-  .ed-form label .ed-input {
-    width: 100%;
-    padding: 10px 10px 20px 10px;
-    outline: 0;
-    border: 1px solid rgba(105, 105, 105, 0.397);
-    border-radius: 10px;
-  }
-  
-  .ed-form label .ed-input + span {
-    position: absolute;
-    left: 10px;
-    top: 15px;
-    color: grey;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
-  
-  .ed-form label .ed-input:placeholder-shown + span {
-    top: 15px;
-    font-size: 0.9em;
-  }
-  
-  .ed-form label .ed-input:focus + span,.ed-form label .ed-input:valid + span {
-    top: 30px;
-    font-size: 0.7em;
-    font-weight: 600;
-  }
-  
-  .ed-form .ed-label .ed-input:valid + span {
-    color: green;
-  }
-  
-  .ed-submit {
-    border: none;
-    outline: none;
-    background-color: royalblue;
-    padding: 10px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 16px;
-    transform: .3s ease;
-  }
-  
-  .ed-submit:hover {
-    background-color: rgb(56, 90, 194);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.ed-title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.ed-title::before,
+.ed-title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+
+.ed-title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+
+.ed-title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.ed-message,
+.ed-signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.ed-signin {
+  text-align: center;
+}
+
+.ed-signin a {
+  color: royalblue;
+}
+
+.ed-signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.ed-flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.ed-form label {
+  position: relative;
+}
+
+.ed-form label .ed-input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.ed-form label .ed-input+span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.ed-form label .ed-input:placeholder-shown+span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.ed-form label .ed-input:focus+span,
+.ed-form label .ed-input:valid+span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.ed-form .ed-label .ed-input:valid+span {
+  color: green;
+}
+
+.ed-submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.ed-submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+
+.ed-cancel {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
   }
 
-  .ed-cancel {
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 16px;
-    transform: .3s ease;
+  to {
+    transform: scale(1.8);
+    opacity: 0;
   }
-  
-  @keyframes pulse {
-    from {
-      transform: scale(0.9);
-      opacity: 1;
-    }
-  
-    to {
-      transform: scale(1.8);
-      opacity: 0;
-    }
-  }
+}
 
 
 
@@ -180,7 +183,7 @@
 }
 
 .po-form input,
-.po-form input{
+.po-form input {
   border-radius: 0.5rem;
   padding: 1rem 0.75rem;
   width: 100%;

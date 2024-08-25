@@ -17,11 +17,19 @@ function EditMe() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userdata = useSelector((state) => state.profile.profile);
+  const status = useSelector((state) => state.profile.update_status)
 
   // Fetch user data on mount and initialize form fields
   useEffect(() => {
     dispatch(fetchUser());
+
   }, [dispatch]);
+
+  useEffect(() => {
+    if (status === 'succeeded') {
+      navigate('/profile')
+    }
+  })
 
   useEffect(() => {
     if (userdata) {
@@ -43,12 +51,12 @@ function EditMe() {
       userId: localStorage.getItem('skyn_userId'),
       githubURL,
       companyId,
-      purpose,
       city,
       jobTitle,
-      aboutJobTitle,
       linkedInURL,
+      purpose,
       experience,
+      aboutJobTitle
     };
     dispatch(updateUser(formData));
   };
@@ -65,32 +73,23 @@ function EditMe() {
             onChange={(e) => setGithubURL(e.target.value)}
             placeholder='Enter your GitHub URL'
           />
-          <input
-            type='email'
-            name='email'
-            placeholder='Enter your email'
-            value={userdata.email}
-            readOnly
-          />
-          <input
-            type='text'
-            name='companyId'
-            value={companyId}
-            onChange={(e) => setCompanyId(e.target.value)}
-            placeholder='Enter your company ID'
-          />
           <select
             name='purpose'
             value={purpose}
             onChange={(e) => setPurpose(e.target.value)}
           >
-            <option value='' disabled>
-              Select your purpose
+            <option value="" disabled>
+              Choose Occupation
             </option>
-            <option value='Student'>Student</option>
-            <option value='Teacher'>Teacher</option>
-            <option value='Engineer'>FREELANCER</option>
-            <option value='Other'>Other</option>
+            <option value="STUDENT">Student</option>
+            <option value="ENTREPRENEUR">Entrepreneur</option>
+            <option value="BUSINESS">Business</option>
+            <option value="SERVICE_PROVIDER">Service Provider</option>
+            <option value="FREELANCER">Freelancer</option>
+            <option value="EMPLOYEE">Employee</option>
+            <option value="RECRUITER">Recruiter</option>
+            <option value="INVESTOR">Investor</option>
+            <option value="NETWORK">Network</option>
           </select>
           <input
             type='text'
@@ -108,13 +107,6 @@ function EditMe() {
           />
           <input
             type='text'
-            name='aboutJobTitle'
-            placeholder='Enter about your job title'
-            value={aboutJobTitle}
-            onChange={(e) => setAboutJobTitle(e.target.value)}
-          />
-          <input
-            type='text'
             name='linkedInURL'
             placeholder='Enter your LinkedIn URL'
             value={linkedInURL}
@@ -127,15 +119,17 @@ function EditMe() {
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
           />
+          <div className='flex flex-row items-center gap-10'>
+            <button type='submit'>Save</button>
+            <button
+              className='my-3 bg-red-500'
+              type='button'
+              onClick={() => navigate('/profile')}
+            >
+              Cancel
+            </button>
+          </div>
 
-          <button type='submit'>Save</button>
-          <button
-            className='my-3 bg-red-500'
-            type='button'
-            onClick={() => navigate('/profile')}
-          >
-            Cancel
-          </button>
         </form>
       </div>
     </div>
