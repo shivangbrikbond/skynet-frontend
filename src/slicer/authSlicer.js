@@ -6,7 +6,8 @@ const initialState = {
   status: 'idle',
   error: null,
   message: '',
-  isLoggedIn: true
+  isLoggedIn: true,
+  register_status: 'idle'
 };
 
 const baseUrl = process.env.REACT_APP_API_URL
@@ -34,7 +35,7 @@ export const CheckUser = createAsyncThunk(
   'auth/CheckUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = axios.get(`${baseUrl}/healthCheck`, {
+      const response = axios.get(`${baseUrl}/checkAuth`, {
         headers: {
           'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
           'Content-Type': 'application/json'
@@ -55,7 +56,6 @@ export const loginUser = createAsyncThunk(
       const response = await axios.post(
         `${baseUrl}/login`,
         userData,
-        { withCredentials: true } // Ensure cookies are included with the request
       );
 
       // Return the response data on success
@@ -81,18 +81,24 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
-        state.status = 'loading';
+        state.register_status = 'loading';
         state.error = null;
         state.message = '';
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.register_status = 'succeeded';
         state.user = action.payload;
+        console.log(action);
+        localStorage.setItem('skyn_token', action.payload["token"])
+        localStorage.setItem('skyn_userId', action.payload.user["userId"])
+        localStorage.setItem('skyn_email', action.payload.user["email"])
+        localStorage.setItem('profile_pic', action.payload.user["profilePic"])
+
         state.error = null;
         state.message = '';
       })
       .addCase(registerUser.rejected, (state, action) => {
-        state.status = 'failed';
+        state.register_status = 'failed';
         state.error = action.payload;
         state.message = action.payload.message || 'Registration failed';
         console.log(state.message)

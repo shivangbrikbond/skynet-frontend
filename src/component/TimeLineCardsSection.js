@@ -29,7 +29,7 @@ export default function TimeLineCardsSection({ Title, line_color = 'bg-[#C6C5C5]
                 </h1>
 
                 {edit === true ?
-                    <IoIosAddCircleOutline size={49} className="flex w-[30px]" onClick={() => navigate('/addtimeline')} />
+                    <IoIosAddCircleOutline size={49} className="flex lg:h-[49.93px] md:h-[30.93px] h-[25px]" onClick={() => navigate('/addtimeline')} />
                     : <></>
                 }
             </div>
@@ -45,7 +45,7 @@ export default function TimeLineCardsSection({ Title, line_color = 'bg-[#C6C5C5]
                             Object.values(timeline).map((data) => {
                                 return (
                                     // <></>
-                                    <TimeLineCards title={data.title} id={data.id} startDate={data.startDate} endDate={data.endDate} description={data.description} cards_bg={cards_bg} add_display={add_display} duration_display={duration_display} time_display={time_display} skills_display={skills_display} font_weight={font_weight} edit />
+                                    <TimeLineCards title={data.title} id={data.id} startDate={data.startDate} endDate={data.endDate} description={data.description} cards_bg={cards_bg} add_display={add_display} duration_display={duration_display} time_display={time_display} skills_display={skills_display} font_weight={font_weight} edit={edit} />
                                 )
                             })
                         }

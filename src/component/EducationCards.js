@@ -12,9 +12,15 @@ export default function EducationCards({ cards_bg, line_color, duration_display,
     Time = start_date + " - " + end_date;
     const dispatch = useDispatch();
 
+    const baseUrl = process.env.REACT_APP_API_URL
 
     const handledelete = async (id) => {
-        const response = await axios.delete(`http://localhost:6898/api/v1/users/history/delete/${id}`, { withCredentials: true })
+        const response = await axios.delete(`${baseUrl}/history/delete/${id}`, {
+            headers: {
+                'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
+                'Content-Type': 'application/json'
+            }
+        })
         console.log(response.data)
         window.location.reload();
     }
@@ -37,8 +43,10 @@ export default function EducationCards({ cards_bg, line_color, duration_display,
                     <div className='flex flex-col items-end w-[80%] p-5'>
                         <div className='flex'>
                             {edit === true ?
-                                <><RiDeleteBin4Fill size={30} onClick={() => handledelete(id)} className={` ${edit_display}`} />
-                                    <RiPencilFill size={30} className={`${edit_display}`} /></>
+                                <>
+                                    <RiDeleteBin4Fill size={30} onClick={() => handledelete(id)} />
+                                    {/* <RiPencilFill size={30} className={`${edit_display}`} /> */}
+                                </>
                                 : <></>
                             }
                         </div>
