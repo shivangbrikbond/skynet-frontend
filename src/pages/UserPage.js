@@ -22,11 +22,12 @@ function UserPage() {
 
     console.log(user)
 
-    const follow = user.followers.length === 0 ? true : false
+    var follow = false;
 
     useEffect(() => {
 
         dispatch(ViewUser(id))
+        follow = user.followers.length === 0 ? true : false
     }, [dispatch])
 
     return (
