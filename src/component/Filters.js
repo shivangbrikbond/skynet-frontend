@@ -12,6 +12,8 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
 
     const dispatch = useDispatch();
 
+    const [value, setValue] = useState(sectorValue)
+
     const options1 = ["All", "ENTREPRENEUR", "STUDENT", "BUSINESS", "SERVICE_PROVIDER", "FREELANCER", "EMPLOYEE", "RECRUITER", "INVESTOR", "NETWORK"];
     const options2 = ["any", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const options3 = ["all", "Option X", "Option Y", "Option Z"];
@@ -24,6 +26,11 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
         setSelectedValue3(event.target.value);
     };
 
+    const handleSector = (event) => {
+        setValue(event.target.value)
+        dispatch(setSector(event.target.value))
+    }
+
 
     return (
         <div className='py-3 flex flex-row gap-4 w-full items-start justify-center pl-3 lg:pr-20'>
@@ -35,8 +42,8 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
                     Sector
                 </button>
                 <select
-                    value={sectorValue}
-                    onChange={(e) => dispatch(setSector(e.target.value))}
+                    value={value}
+                    onChange={(e) => handleSector(e)}
                     className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg z-10 appearance-none px-4 py-2"
                 // aria-labelledby="filter-sector-1"
                 >
