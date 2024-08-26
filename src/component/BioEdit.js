@@ -76,28 +76,42 @@ function BioEdit() {
 
     try {
 
-      compressImage(file, 1, async (compFile) => {
-        const params = {
-          Bucket: S3_BUCKET,
-          Key: Math.floor(Math.random() * 1000000000) + file.name,
-          Body: compFile,
-        };
-        var upload = await s3.putObject(params).promise();
-        console.log(upload);
+      if (file === '') {
         const formData = {
-          profilePic: `https://skynect.s3.amazonaws.com/${params.Key}`,
-          summary,
+          profilePic,
+          bio: summary,
           aspirations,
           userId: localStorage.getItem('skyn_userId'),
         };
 
         dispatch(updateInfo(formData))
         if (status === 'succeeded') {
-          localStorage.setItem('profile_pic', `https://skynect.s3.amazonaws.com/${params.Key}`)
           navigate('/profile')
         }
-      })
+      }
+      else {
+        compressImage(file, 1, async (compFile) => {
+          const params = {
+            Bucket: S3_BUCKET,
+            Key: Math.floor(Math.random() * 1000000000) + file.name,
+            Body: compFile,
+          };
+          var upload = await s3.putObject(params).promise();
+          console.log(upload);
+          const formData = {
+            profilePic: `https://skynect.s3.amazonaws.com/${params.Key}`,
+            bio: summary,
+            aspirations,
+            userId: localStorage.getItem('skyn_userId'),
+          };
 
+          dispatch(updateInfo(formData))
+          if (status === 'succeeded') {
+            localStorage.setItem('profile_pic', `https://skynect.s3.amazonaws.com/${params.Key}`)
+            navigate('/profile')
+          }
+        })
+      }
 
     } catch (error) {
       console.error(error);
@@ -161,12 +175,6 @@ function BioEdit() {
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
             /></label>
-          {/* <input
-            type="password"
-            name="conformpassword"
-            placeholder="Enter "
-            required
-          /> */}
           <br />
           {
             msg === 'Loading'
