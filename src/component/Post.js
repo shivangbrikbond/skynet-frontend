@@ -59,7 +59,7 @@ const Post = ({ width = 'w-[40vw]', user_name, posted_date, caption, comment_cou
 
   return (
 
-    <div class="max-w-xl w-[100%] mx-auto my-7">
+    <div class="max-w-xl w-[100%] mx-auto my-7 display-inline">
       <div class="bg-white rounded-lg shadow-md">
         <div class="flex items-center px-4 py-3 border-b gap-4">
           <div className='w-[42px] h-[42px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
@@ -75,7 +75,7 @@ const Post = ({ width = 'w-[40vw]', user_name, posted_date, caption, comment_cou
 
         <div class="px-4 py-2">
           <p class="text-lg">{caption}</p>
-          <div className='h-[400px]' style={{ position: 'relative', overflow: 'hidden' }}>
+          <div className='' style={{ position: 'relative', overflow: 'hidden', maxHeight: '600px' }}>
             <img src={`${mediaLink}`} alt="Post Image" class="mt-2 rounded-sm" style={{ width: '100%', height: 'auto', margin: 'auto', display: 'inline' }} />
           </div>
 

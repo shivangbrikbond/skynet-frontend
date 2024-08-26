@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import AWS from 'aws-sdk';
 import { uploadFile } from 'react-s3';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import Resizer from 'react-image-file-resizer';
 
 function AddPost() {
   const [file, setFile] = useState(null);
@@ -23,6 +24,22 @@ function AddPost() {
   const navigate = useNavigate('');
 
   //AWS LOGIC
+
+  const compressImage = (file, maxSizeMB = 1, callback) => {
+    Resizer.imageFileResizer(
+      file,
+      800, // max width
+      800, // max height
+      'JPEG', // output format
+      70, // quality (0-100)
+      0, // rotation
+      (uri) => {
+        callback(uri);
+      },
+      'blob', // output type
+      maxSizeMB * 1024, // max file size in KB
+    );
+  };
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
@@ -51,11 +68,7 @@ function AddPost() {
 
     // Files Parameters
 
-    const params = {
-      Bucket: S3_BUCKET,
-      Key: Math.floor(Math.random() * 1000000000) + file.name,
-      Body: file,
-    };
+
 
 
     // Uploading file to s3
@@ -63,20 +76,29 @@ function AddPost() {
 
     try {
       setButton('Loading');
-      var upload = await s3.putObject(params).promise();
-      console.log(upload);
-      const formData = {
-        mediaLink: [`https://skynect.s3.amazonaws.com/${params.Key}`],
-        caption,
-        description,
-        tags,
-        landmark,
-        userId: localStorage.getItem('skyn_userId'),
-      };
+      compressImage(file, 1, async (compFile) => {
+        const params = {
+          Bucket: S3_BUCKET,
+          Key: Math.floor(Math.random() * 1000000000) + file.name,
+          Body: file,
+        };
+        var upload = await s3.putObject(params).promise();
+        console.log(upload);
+        const formData = {
+          mediaLink: [`https://skynect.s3.amazonaws.com/${params.Key}`],
+          caption,
+          description,
+          tags,
+          landmark,
+          userId: localStorage.getItem('skyn_userId'),
+        };
 
-      dispatch(createPost(formData));
-      alert("File uploaded successfully.");
-      navigate('/')
+        dispatch(createPost(formData));
+        navigate('/')
+      })
+
+
+
 
     } catch (error) {
       console.error(error);
@@ -145,7 +167,15 @@ function AddPost() {
                   <i class="fa fa-info-circle"></i>
                   &nbsp;Give us time to process.
                 </div></>
+                : <></>}
+            {
+              msg === 'Error'
+                ? <><div class="error-msg">
+                  <i class="fa fa-times-circle"></i>
+                  Something went wrong.
+                </div></>
                 : <></>
+
             }
 
             <button type="submit" class="w-full mt-2 p-2.5 text-sm font-medium text-white bg-blue-600 rounded-md" onClick={handleSubmit}>{msg}</button>

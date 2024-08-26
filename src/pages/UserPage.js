@@ -47,6 +47,14 @@ function UserPage() {
                     {/* <RiPencilFill size={49} /> */}
                 </div>
                 <div className='relative py-3 gap-4 grid md:grid-cols-2 grid-cols-1 justify-evenly'>
+                    {
+                        Object.values(user.post).map((data) => {
+                            console.log(data.id)
+                            return (
+                                <Post user_name={user['name']} posted_date={data.date} caption={data.caption} like_count={data._count['like']} comment_count={data._count['comment']} post_id={data.id} mediaLink={data.mediaLink} like={data.like} profilePic={user.profilePic} landmark={data.landmark} />
+                            )
+                        })
+                    }
                     {/* <Post width='w-[45vw]' />
                     <Post width='w-[45vw]' /> */}
                 </div>
