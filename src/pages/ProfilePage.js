@@ -48,7 +48,24 @@ export default function ProfilePage() {
                     </h1>
                     {/* <RiPencilFill size={49} /> */}
                 </div>
-                <div className='relative py-3 gap-4 grid md:grid-cols-2 grid-cols-1 justify-evenly'>
+                <div className='flex flex-row gap-20' style={{ overflow: 'auto' }}>
+                    {
+                        profile?.post
+                            ? <>
+                                {
+                                    Object.values(profile.post).map((data) => {
+                                        console.log(data.id)
+                                        return (
+                                            <Post user_name={profile['name']} posted_date={data.date} caption={data.caption} like_count={data._count['like']} comment_count={data._count['comment']} post_id={data.id} mediaLink={data.mediaLink} profilePic={profile.profilePic} landmark={data.landmark} like={data.like} />
+                                        )
+                                    })
+                                }
+                            </>
+                            : <></>
+                    }
+
+                    {/* <Post width='w-[45vw]' />
+                    <Post width='w-[45vw]' /> */}
                     {/* <Post width='w-[45vw]' />
                     <Post width='w-[45vw]' /> */}
                 </div>

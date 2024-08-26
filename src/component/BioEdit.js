@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
+import Resizer from 'react-image-file-resizer';
 
 function BioEdit() {
 
@@ -14,6 +15,7 @@ function BioEdit() {
   const [file, setFile] = useState('')
   const [submitButton, setSubmitButton] = useState('Submit')
   const [cancelButton, setCancelButton] = useState('Cancel')
+  const [msg, setButton] = useState('');
 
   const userdata = useSelector((state) => state.profile.profile);
   const status = useSelector((state) => state.auth.status);
@@ -33,11 +35,28 @@ function BioEdit() {
     console.log(userdata)
   }, [userdata]);
 
+  const compressImage = (file, maxSizeMB = 1, callback) => {
+    Resizer.imageFileResizer(
+      file,
+      200, // max width
+      200, // max height
+      'JPEG', // output format
+      70, // quality (0-100)
+      0, // rotation
+      (uri) => {
+        callback(uri);
+      },
+      'blob', // output type
+      maxSizeMB * 1024, // max file size in KB
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    setSubmitButton('Loading....')
-    setCancelButton('Loading....')
+    setSubmitButton('')
+    setCancelButton('')
+    setButton('Loading')
 
     const S3_BUCKET = "skynect";
 
@@ -54,29 +73,31 @@ function BioEdit() {
       region: REGION,
     });
 
-    // Files Parameters
-
-    const params = {
-      Bucket: S3_BUCKET,
-      Key: Math.floor(Math.random() * 1000000000) + file.name,
-      Body: file,
-    };
 
     try {
-      var upload = await s3.putObject(params).promise();
-      const data = {
-        userId: localStorage.getItem('skyn_userId'),
-        bio: summary,
-        aspirations: aspirations,
-        profilePic: `https://skynect.s3.amazonaws.com/${params.Key}`
-      }
-      console.log(data);
-      alert("File uploaded successfully.");
-      dispatch(updateInfo(data))
-      if (status === 'succeeded') {
-        localStorage.setItem('profile_pic', `https://skynect.s3.amazonaws.com/${params.Key}`)
-        navigate('/profile')
-      }
+
+      compressImage(file, 1, async (compFile) => {
+        const params = {
+          Bucket: S3_BUCKET,
+          Key: Math.floor(Math.random() * 1000000000) + file.name,
+          Body: compFile,
+        };
+        var upload = await s3.putObject(params).promise();
+        console.log(upload);
+        const formData = {
+          profilePic: `https://skynect.s3.amazonaws.com/${params.Key}`,
+          summary,
+          aspirations,
+          userId: localStorage.getItem('skyn_userId'),
+        };
+
+        dispatch(updateInfo(formData))
+        if (status === 'succeeded') {
+          localStorage.setItem('profile_pic', `https://skynect.s3.amazonaws.com/${params.Key}`)
+          navigate('/profile')
+        }
+      })
+
 
     } catch (error) {
       console.error(error);
@@ -147,7 +168,24 @@ function BioEdit() {
             required
           /> */}
           <br />
+          {
+            msg === 'Loading'
+              ? <><div class="info-msg">
+                <i class="fa fa-info-circle"></i>
+                &nbsp;Give us time to process.
+              </div></>
+              : <></>}
+          {
+            msg === 'Error'
+              ? <><div class="error-msg">
+                <i class="fa fa-times-circle"></i>
+                Something went wrong.
+              </div></>
+              : <></>
+
+          }
           <div className='flex flex-row justify-evenly gap-10'>
+
             <button type="submit" onClick={handleSubmit}>{submitButton}</button>
             <button type="cancel" onClick={handleCancel}>{cancelButton}</button>
           </div>
