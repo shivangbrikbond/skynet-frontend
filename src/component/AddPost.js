@@ -15,16 +15,20 @@ function AddPost() {
   const [landmark, setLandmark] = useState('');
 
   const dispatch = useDispatch();
+  const [msg, setButton] = useState('Submit')
+  const [image, setImage] = useState('')
 
   const status = useSelector((state) => state.post.status);
   const error = useSelector((state) => state.post.error);
-  const navigate = useNavigate();
+  const navigate = useNavigate('');
 
   //AWS LOGIC
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     // Changing file state
+    const imageUrl = URL.createObjectURL(file);
+    setImage(imageUrl)
     setFile(file);
   }
 
@@ -57,8 +61,8 @@ function AddPost() {
     // Uploading file to s3
 
 
-
     try {
+      setButton('Loading');
       var upload = await s3.putObject(params).promise();
       console.log(upload);
       const formData = {
@@ -70,22 +74,15 @@ function AddPost() {
         userId: localStorage.getItem('skyn_userId'),
       };
 
-      dispatch(createPost(formData))
+      dispatch(createPost(formData));
       alert("File uploaded successfully.");
+      navigate('/')
 
     } catch (error) {
       console.error(error);
-      // setUploading(false)
       alert("Error uploading file: " + error.message); // Inform user about the error
     }
 
-    // await upload.then((err, data) => {
-    //   console.log("err" + err);
-    //   // Fille successfully uploaded
-    //   console.log("data" + data)
-    //   alert("File uploaded successfully.");
-    // })
-    //   .catch((err) => console.log(err));
   };
 
 
@@ -100,53 +97,61 @@ function AddPost() {
 
   return (
 
-    <div className='ed-container'>
-      <form class="ed-form" onSubmit={handleSubmit}>
-        <p class="ed-title">Add Post</p>
-        <p class="ed-message"></p>
+    <div className=''>
+      <div class="container mx-auto p-4 flex items-center justify-center h-full">
+        <div class="max-w-[350px] w-full">
 
-        <label>
-          <input required="" placeholder="" type="file" class="ed-input" name="title"
-            // value={file}
-            onChange={handleFileInput}
-          />
-          <span>Media</span>
-        </label>
+          {/* <!-- Form - create your endpoint on Getform and start using this form --> */}
+          <form class="w-full flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+            <div className='h-[400px] w-[400px]' style={{ overflow: 'hidden' }}>
+              <img src={image} style={{ height: 'auto', width: '100%' }}></img>
+            </div>
+            <input
+              name="caption"
+              type="text"
+              placeholder="Caption"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              class="w-full px-3 py-2 mb-2 transition-all border border-gray-200 rounded-md outline-blue-600/50 hover:border-blue-600/30"
+            />
+            <input
+              name="landmark"
+              type="text"
+              placeholder="Landmark"
+              value={landmark}
+              onChange={(e) => setLandmark(e.target.value)}
+              class="w-full px-3 py-2 mb-2 transition-all border border-gray-200 rounded-md outline-blue-600/50 hover:border-blue-600/30"
+            />
+            <div class="upload-container relative flex items-center justify-between w-full">
+              <div class="drop-area w-full rounded-md border-2 border-dotted border-gray-200 transition-all hover:border-blue-600/30 text-center">
+                <label
+                  for="file-input"
+                  class="block w-full h-full text-gray-500 p-4 text-sm cursor-pointer">
+                  Click to upload file
+                </label>
+                <input
+                  name="file"
+                  type="file"
+                  id="file-input"
+                  accept="image/*"
+                  class="hidden"
+                  onChange={handleFileInput}
+                />
+              </div>
+            </div>
+            {
+              msg === 'Loading'
+                ? <><div class="info-msg">
+                  <i class="fa fa-info-circle"></i>
+                  &nbsp;Give us time to process.
+                </div></>
+                : <></>
+            }
 
-        <label>
-          <input required="" placeholder="" type="text" class="ed-input" name="description"
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
-          />
-          <span>caption</span>
-        </label>
-        <label>
-          <input required="" placeholder="" type="text" class="ed-input" name="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <span>description</span>
-        </label>
-        <label>
-          <input required="" placeholder="" type="text" class="ed-input" name="purpose"
-            value={tags.join(',')}
-            onChange={(e) => setTags(e.target.value.split(','))}
-          />
-          <span>tags</span>
-        </label>
-        <label>
-          <input required="" placeholder="" type="text" class="ed-input" name="purpose"
-            value={landmark}
-            onChange={(e) => setLandmark(e.target.value)}
-          />
-          <span>landmark</span>
-        </label>
-        <button type="submit" class="ed-submit bg-blue-600">Submit</button>
-        <button class="ed-cancel bg-red-600" >Cancel</button>
-        <p class="ed-signin"><a href="#"></a> </p>
-      </form>
-      {/* {upload} */}
-
+            <button type="submit" class="w-full mt-2 p-2.5 text-sm font-medium text-white bg-blue-600 rounded-md" onClick={handleSubmit}>{msg}</button>
+          </form>
+        </div>
+      </div>
     </div>
   )
 }

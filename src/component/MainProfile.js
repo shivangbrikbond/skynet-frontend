@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import avatar from "../asset/avtar.png";
 import axios from 'axios';
 import { FaEdit } from "react-icons/fa";
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 export default function MainProfile(props) {
     const navigate = useNavigate('');
 
-    const [activeFollowButton, setActiveFollowButton] = useState(props.follow)
+    const [activeFollowButton, setActiveFollowButton] = useState(false);
     const baseUrl = process.env.REACT_APP_API_URL
     const handleFollow = (id) => {
         const data = {
@@ -23,6 +23,25 @@ export default function MainProfile(props) {
         setActiveFollowButton(false);
     }
 
+    const checkFollow = async () => {
+        const data = {
+            userId: localStorage.getItem('skyn_userId'),
+            foreignId: props.userId
+        }
+        const response = await axios.post(`${baseUrl}/check/follow`, data, {
+            headers: {
+                'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log(response.data)
+        const set = response.data.body.length === 0 ? true : false
+        setActiveFollowButton(set)
+    }
+
+    useEffect(() => {
+        checkFollow();
+    }, [])
 
     return (
         <div className='relative bg-[#C0FCF8] shadow-md pb-5 flex flex-col w-[100%] bordered rounded-2xl p-1 h-[full]' style={{ minHeight: '200px' }}>
@@ -67,8 +86,8 @@ export default function MainProfile(props) {
                         {
                             props.edit === false
                                 ? <>{
-                                    activeFollowButton === true
-                                        ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
+                                    activeFollowButton == true
+                                        ? <button className='px-4 py-1 border border-sky-500 rounded-full text-sm' onClick={() => {
                                             handleFollow(props.userId)
                                             this.disabled = "true"
                                         }} style={{ marginTop: '2px' }}>Follow</button>

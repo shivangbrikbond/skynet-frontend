@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import YourJobs from '../component/YourJobs'
 import Suggestions from '../component/Suggestions';
 import Post from '../component/Post';
@@ -17,17 +17,13 @@ function UserPage() {
 
     const { id } = useParams();
 
-
     const user = useSelector((state) => state.profile.user)
-
     console.log(user)
 
-    var follow = false;
 
     useEffect(() => {
 
         dispatch(ViewUser(id))
-        follow = user.followers.length === 0 ? true : false
     }, [dispatch])
 
     return (
@@ -35,7 +31,7 @@ function UserPage() {
             <div className='relative py-9 grid grid-cols-3 px-3 gap-2 justify-evenly'>
                 <div className='relative flex flex-col gap-3 col-span-3 md:col-span-2'>
                     <div className='relative flex flex-col gap-24 '>
-                        <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={user.userId} follow={follow} />
+                        <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={id} follow={user.followers} />
                         <AboutMe skills_display='hidden' aboutJobTitle={user.aboutJobTitle} aboutYou={user.aboutYou} city={user.city} comapnyId={user.comapnyId} email={user.email} experience={user.experience} githubURL={user.githubURL} jobTitle={user.jobTitle} linkedInURL={user.linkedInURL} phoneCode={user.phoneCode} phone={user.phone} purpose={user.purpose} edit={false} />
                         <EducationCardsSection Title='Education' skills_display='hidden' edit={false} userid={id} PURPOSE={'STUDENT'} />
                         <EducationCardsSection Title='Experience' skills_display='hidden' edit={false} userid={id} PURPOSE={'FREELANCER'} />
