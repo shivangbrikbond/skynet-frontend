@@ -53,7 +53,7 @@ export default function Homepage() {
           Object.values(posts).map((data) => {
             console.log(data.id)
             return (
-              <Post user_name={data.user['name']} posted_date={data.user['date']} caption={data.caption} like_count={data._count['like']} comment_count={data._count['comment']} post_id={data.id} mediaLink={data.mediaLink} like={data.like} />
+              <Post user_name={data.user['name']} posted_date={data.date} caption={data.caption} like_count={data._count['like']} comment_count={data._count['comment']} post_id={data.id} mediaLink={data.mediaLink} like={data.like} profilePic={data.user.profilePic} landmark={data.landmark} />
             )
           })
         }
