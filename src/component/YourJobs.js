@@ -30,7 +30,7 @@ const YourJobs = ({ Title = 'People Viewd Your Profile', link }) => {
               console.log("view end")
 
               return (
-                <SuggestionSection profileImage={view.user['profilePic']} Name={view.user['name']} Post={view.user['aspirations']} purpose={view.user['purpose']} />
+                <SuggestionSection profileImage={view.user['profilePic']} Name={view.user['name']} Post={view.user['aspirations']} purpose={view.user['purpose']} userId={view.user['userId']} />
               )
             })
           }

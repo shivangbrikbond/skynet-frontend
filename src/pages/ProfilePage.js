@@ -49,7 +49,7 @@ export default function ProfilePage() {
                     {/* <RiPencilFill size={49} /> */}
                 </div>
                 <div className='flex flex-row gap-20' style={{ overflow: 'auto' }}>
-                    {
+                    {/* {
                         profile?.post
                             ? <>
                                 {
@@ -62,7 +62,7 @@ export default function ProfilePage() {
                                 }
                             </>
                             : <></>
-                    }
+                    } */}
 
                     {/* <Post width='w-[45vw]' />
                     <Post width='w-[45vw]' /> */}
