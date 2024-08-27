@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { featchSuggestion } from '../slicer/SuggestionSlicer';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { CreatView } from '../slicer/profileViewSlice';
 
 
 export default function Homepage() {
