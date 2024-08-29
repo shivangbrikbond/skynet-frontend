@@ -34,7 +34,7 @@ function UserPage() {
             <div className='col-span-1'></div>
             <div className='relative flex flex-col gap-3 col-span-6 md:col-span-6'>
                 <div className='relative flex flex-col gap-10 divMargin'>
-                    <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={id} follow={user.followers} />
+                    <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={id} follow={user.followers} _count={user._count} />
                     <AboutMe skills_display='hidden' aboutJobTitle={user.aboutJobTitle} aboutYou={user.aboutYou} city={user.city} comapnyId={user.comapnyId} email={user.email} experience={user.experience} githubURL={user.githubURL} jobTitle={user.jobTitle} linkedInURL={user.linkedInURL} phoneCode={user.phoneCode} phone={user.phone} purpose={user.purpose} edit={false} />
                     <EducationCardsSection Title='Education' skills_display='hidden' edit={false} userid={id} PURPOSE={'STUDENT'} />
                     <EducationCardsSection Title='Experience' skills_display='hidden' edit={false} userid={id} PURPOSE={'FREELANCER'} />
