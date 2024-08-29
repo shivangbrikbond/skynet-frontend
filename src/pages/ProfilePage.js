@@ -30,7 +30,7 @@ export default function ProfilePage() {
     return (
         <div className='relative  lg:px-9 px-4 flex  flex-col py-3 justify-evenly gap-9'>
 
-            <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '2%' }}>
+            <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '5%' }}>
                 <div className='col-span-1'></div>
                 <div className='relative flex flex-col gap-3 col-span-6 md:col-span-6'>
                     <div className='relative flex flex-col gap-10 divMargin'>
