@@ -35,7 +35,9 @@ import UserPage from "./pages/UserPage";
 import EditMe from "./component/EditMe";
 import Profile from "./component/Profile";
 import FollowersPage from "./pages/FollowersPage";
+// import FollowingPage from "./pages/FollowingPage";
 import FollowingPage from "./pages/FollowingPage";
+
 
 
 function App() {
