@@ -37,6 +37,7 @@ import Profile from "./component/Profile";
 import FollowersPage from "./pages/FollowersPage";
 import FollowingPage from "./pages/FollowingPage";
 
+
 function App() {
   const [activeButton, setActiveButton] = useState('');
 
