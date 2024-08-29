@@ -17,7 +17,6 @@ export default function EducationCardsSection({ Title, add_display = 'flex', lin
 
     const profileHistry = useSelector((state) => state.profile.history);
 
-    console.log(profileHistry)
 
     useEffect(() => {
         if (id === undefined) id = localStorage.getItem('skyn_userId')
@@ -27,11 +26,11 @@ export default function EducationCardsSection({ Title, add_display = 'flex', lin
     return (
         <div className='relative w-[100%] bg-[#FFFFFF] rounded-md shadow-md bg-opacity-40 pb-24' style={{ maxWidth: "950" + "px", backgroundColor: 'white' }}>
             <div className='flex flex-row lg:p-10 p-8 px-4 items-center'>
-                <h1 className='font-david-libre font-normal lg:text-[40.7347px] text-[30px] leading-[41px] flex-grow text-center '>
+                <h1 className='font-david-libre font-normal lg:text-[28.7347px] text-[25px] leading-[20px] flex-grow text-center '>
                     {Title}
                 </h1>
                 {edit === true ?
-                    <IoIosAddCircleOutline size={49} onClick={handleAddEduction} className={`${add_display} lg:h-[49.93px] md:h-[30.93px] h-[25px]`} />
+                    <IoIosAddCircleOutline size={49} onClick={handleAddEduction} className={`${add_display} lg:h-[40.93px] md:h-[25.93px] h-[25px]`} />
                     : <></>
                 }
 

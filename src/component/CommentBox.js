@@ -47,7 +47,6 @@ function CommentBox({ postId }) {
         }
       });
       setComments(response.data.body || []);
-      console.log(comments, "good")
     } catch (error) {
       console.error('Error fetching comments:', error);
     } finally {
@@ -127,7 +126,6 @@ function CommentBox({ postId }) {
       ...formDataCoc,
       parentCommentId: parentCommentId,
     };
-    console.log(formDataCoc)
     try {
       const response = await axios.post(`${baseUrl}/comment/create`, updatedFormDataCoc, {
         headers: {
@@ -244,6 +242,7 @@ function CommentBox({ postId }) {
               value={formData.text}
               onChange={handleChange}
               required
+              style={{ backgroundColor: '#F5F5F5' }}
             ></textarea>
             <div>
               <button type="submit" className="send" title="Send">

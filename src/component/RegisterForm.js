@@ -46,7 +46,6 @@ function RegisterForm() {
     }
     else {
       setError(message);
-      console.log(errormsg, "this is error")
     }
   }, [status_register])
 
@@ -58,12 +57,10 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form)
     if (otp == 1234) {
       dispatch(registerUser(form))
     }
     else setError("Wrong Otp");
-    console.log("error" + error)
   };
 
   return (

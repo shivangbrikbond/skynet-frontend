@@ -21,7 +21,6 @@ export const createPost = createAsyncThunk('posts/createPost', async (postData) 
       'Content-Type': 'application/json'
     }
   });
-  console.log(response)
   return response.data;
 });
 
@@ -36,32 +35,27 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
       'Content-Type': 'application/json'
     }
   });
-  console.log(response.data)
   return response.data;
 });
 
 // Define the async thunk for liking a post
 export const likePost = createAsyncThunk('posts/likePost', async (data) => {
-  console.log("good")
   const response = await axios.post(`${baseUrl}/like/create`, data, {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
       'Content-Type': 'application/json'
     }
   });
-  console.log(response)
   return response.data;
 });
 
 export const unLikePost = createAsyncThunk('posts/unLikePost', async (data) => {
-  console.log("good")
   const response = await axios.delete(`${baseUrl}/like/delete/${data.userId}?commentId&postId=${data.postId}`, {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
       'Content-Type': 'application/json'
     }
   });
-  console.log(response)
   return response.data;
 });
 
@@ -101,7 +95,6 @@ export const fetchSubComment = createAsyncThunk('posts/fetchSubComment', async (
       'Content-Type': 'application/json'
     }
   });
-  console.log({ parentCommentId, comments: response.data.body })
   return { parentCommentId, comments: response.data.body }; // Return parentCommentId and comments
 });
 

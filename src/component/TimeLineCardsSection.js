@@ -24,12 +24,12 @@ export default function TimeLineCardsSection({ Title, line_color = 'bg-[#C6C5C5]
     return (
         <div className='relative w-[100%] bg-[#FFFFFF] rounded-md shadow-lg bg-opacity-40 pb-24' style={{ backgroundColor: 'white' }}>
             <div className='flex flex-row p-10 items-center'>
-                <h1 className='font-david-libre font-normal lg:text-[40.7347px] text-2xl leading-[41px] flex-grow text-center'>
+                <h1 className='font-david-libre font-normal lg:text-[28.7347px] text-[20px] leading-[28px] flex-grow text-center'>
                     {Title}
                 </h1>
 
                 {edit === true ?
-                    <IoIosAddCircleOutline size={49} className="flex lg:h-[49.93px] md:h-[30.93px] h-[25px]" onClick={() => navigate('/addtimeline')} />
+                    <IoIosAddCircleOutline size={38} className="flex lg:h-[49.93px] md:h-[30.93px] h-[25px]" onClick={() => navigate('/addtimeline')} />
                     : <></>
                 }
             </div>

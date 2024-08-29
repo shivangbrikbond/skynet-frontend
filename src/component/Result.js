@@ -12,6 +12,7 @@ const Post = () => {
 
   const [idArray, setIdArray] = useState([])
   const baseUrl = process.env.REACT_APP_API_URL
+  const [idUArray, setidUArray] = useState([]);
   const search_data = useSelector((state) => state.search.search)
   const handleFollow = (id) => {
     const data = {
@@ -25,8 +26,28 @@ const Post = () => {
       }
     })
     const arr = [...idArray, id]
+    const uArr = idUArray.filter(item => item !== id)
+    setidUArray(uArr);
     setIdArray(arr);
-    console.log(idArray)
+  }
+
+  const handleUnFollow = (id) => {
+    const data = {
+      unfolloweeUserId: localStorage.getItem('skyn_userId'),
+      // unfolloweruserID
+      unfollowerUserId: id
+    }
+    axios.post(`${baseUrl}/unfollow`, data, {
+      headers: {
+        'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
+        'Content-Type': 'application/json'
+      }
+    })
+    // const arr = idArray.filter(item => item !== id)
+    const uArr = [...idUArray, id]
+    const arr = idArray.filter(item => item !== id)
+    setidUArray(uArr);
+    setIdArray(arr);
   }
 
   const handleVistuser = (email, user_id) => {
@@ -46,9 +67,9 @@ const Post = () => {
       <div className='flex flex-row justify-left items-center flex-wrap md:mx-8 mx-1 p-10 gap-10'>
         {
           Object.values(search_data).map((data) => {
-            console.log(search_data)
+
             return (
-              <div className='w-60 h-auto hover:scale-110 bg-[#FFFFFF] shadow-md rounded-lg flex flex-col items-center'>
+              <div className='w-60 h-80 hover:scale-110 bg-[#FFFFFF] shadow-md rounded-lg flex flex-col items-center'>
                 <button className='' onClick={() => handleVistuser(data.email, data.userId)}>
                   <div className='py-6 items-center'>
                     {/* <button className='items-center'> */}
@@ -58,6 +79,7 @@ const Post = () => {
                     {/* </button> */}
                     <div className='text-center py-1'>
                       <p className='font-semibold text-lg'>{data.name}</p>
+                      <p className='font-light text-[15px]' >{data.purpose}</p>
                       <p className='font-light text-base'>{data.aboutJobTitle}</p>
                     </div>
 
@@ -70,15 +92,25 @@ const Post = () => {
                 <div className='flex items-center justify-center pb-6'>
                   {
                     idArray.includes(data.userId)
-                      ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' disabled={true}>Following</button>
-                      : <>{
-                        data.followers.length === 0
-                          ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
-                            handleFollow(data.userId)
-                            this.disabled = "true"
-                          }} style={{ marginTop: '2px' }}>Follow</button>
-                          : <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' disabled={true}>Following</button>
-                      }</>
+                      ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
+                        handleUnFollow(data.userId)
+                      }}>Following</button>
+                      : idUArray.includes(data.userId)
+                        ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
+                          handleFollow(data.userId)
+                          this.disabled = "true"
+                        }} style={{ marginTop: '2px' }}>Follow</button>
+
+                        : <>{
+                          data?.followers?.length === 0
+                            ? <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
+                              handleFollow(data.userId)
+                              this.disabled = "true"
+                            }} style={{ marginTop: '2px' }}>Follow</button>
+                            : <button className='px-6 py-2 border border-sky-500 rounded-full text-sm' onClick={() => {
+                              handleUnFollow(data.userId)
+                            }}>Following</button>
+                        }</>
                   }
 
 

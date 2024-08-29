@@ -18,51 +18,40 @@ function UserPage() {
     const { id } = useParams();
 
     const user = useSelector((state) => state.profile.user)
-    console.log(user)
-
+    const [postArr, setPost] = useState('');
 
     useEffect(() => {
+        if (user.post?.length > 0)
+            setPost(user?.post[0])
+    }, [user]);
 
+    useEffect(() => {
         dispatch(ViewUser(id))
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
-        <div className='relative  lg:px-9 px-4 flex flex-col py-3 justify-evenly gap-9'>
-            <div className='relative py-9 grid grid-cols-3 px-3 gap-2 justify-evenly'>
-                <div className='relative flex flex-col gap-3 col-span-3 md:col-span-2'>
-                    <div className='relative flex flex-col gap-24 '>
-                        <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={id} follow={user.followers} />
-                        <AboutMe skills_display='hidden' aboutJobTitle={user.aboutJobTitle} aboutYou={user.aboutYou} city={user.city} comapnyId={user.comapnyId} email={user.email} experience={user.experience} githubURL={user.githubURL} jobTitle={user.jobTitle} linkedInURL={user.linkedInURL} phoneCode={user.phoneCode} phone={user.phone} purpose={user.purpose} edit={false} />
-                        <EducationCardsSection Title='Education' skills_display='hidden' edit={false} userid={id} PURPOSE={'STUDENT'} />
-                        <EducationCardsSection Title='Experience' skills_display='hidden' edit={false} userid={id} PURPOSE={'FREELANCER'} />
-                        <TimeLineCardsSection Title='Time Line' cards_bg='' edit_display='hidden' time_display='flex' add_display='hidden' skills_display='hidden' duration_display='hidden' font_weight='font-normal' line_color='bg-[#000000]' edit={false} userId={id} />
-                    </div>
-                </div>
-            </div>
-            <div className='relative flex flex-col gap-1'>
-                <div className='relative py-3 flex items-center  px-3'>
-                    <h1 className='font-david-libre font-normal text-[40.7347px] leading-[41px] flex-grow text-center'>
-                        My Posts
-                    </h1>
-                    {/* <RiPencilFill size={49} /> */}
-                </div>
-                <div className='relative py-3 gap-4 grid md:grid-cols-2 grid-cols-1 justify-evenly'>
-                    {/* {
-                        Object.values(user.post).map((data) => {
-                            console.log(data.id)
-                            return (
-                                <Post user_name={user['name']} posted_date={data.date} caption={data.caption} like_count={data._count['like']} comment_count={data._count['comment']} post_id={data.id} mediaLink={data.mediaLink} like={data.like} profilePic={user.profilePic} landmark={data.landmark} />
-                            )
-                        })
-                    } */}
-                    {/* <Post width='w-[45vw]' />
-                    <Post width='w-[45vw]' /> */}
-                </div>
-                <div className='relative py-3 flex flex-rows justify-end'>
-                    <h3 href='#' className='px-7 relative h-18 font-inter font-normal text-[23.296px] leading-[23px] flex items-center text-[#7E7C7C]'>View all posts</h3>
-                </div>
-                <div className='relative flex flex-col gap-9 justify-between items-center mt-1'>
+        <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '3%' }}>
+            <div className='col-span-1'></div>
+            <div className='relative flex flex-col gap-3 col-span-6 md:col-span-6'>
+                <div className='relative flex flex-col gap-10 divMargin'>
+                    <MainProfile name={user.name} aspirations={user.aspirations} bio={user.bio} picture={user.profilePic} edit={false} userId={id} follow={user.followers} />
+                    <AboutMe skills_display='hidden' aboutJobTitle={user.aboutJobTitle} aboutYou={user.aboutYou} city={user.city} comapnyId={user.comapnyId} email={user.email} experience={user.experience} githubURL={user.githubURL} jobTitle={user.jobTitle} linkedInURL={user.linkedInURL} phoneCode={user.phoneCode} phone={user.phone} purpose={user.purpose} edit={false} />
+                    <EducationCardsSection Title='Education' skills_display='hidden' edit={false} userid={id} PURPOSE={'STUDENT'} />
+                    <EducationCardsSection Title='Experience' skills_display='hidden' edit={false} userid={id} PURPOSE={'FREELANCER'} />
+                    <TimeLineCardsSection Title='Time Line' cards_bg='' edit_display='hidden' time_display='flex' add_display='hidden' skills_display='hidden' duration_display='hidden' font_weight='font-normal' line_color='bg-[#000000]' edit={false} userId={id} />
+                    <div>
+                        {
+                            postArr === ''
+                                ? <>
 
+                                </>
+                                : <>
+                                    <Post user_name={user['name']} posted_date={postArr.date} caption={postArr?.caption} like_count={postArr?._count['like']} comment_count={postArr?._count['comment']} post_id={postArr?.id} mediaLink={postArr?.mediaLink} profilePic={user.profilePic} landmark={postArr?.landmark} like={postArr?.like} />
+                                    <p style={{ margin: 'auto 0 auto 60%' }}>View All Posts</p>
+                                </>
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>

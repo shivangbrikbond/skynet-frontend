@@ -33,7 +33,6 @@ function PeopleViewed() {
     })
     const arr = [...idArray, id]
     setIdArray(arr);
-    console.log(idArray)
   }
 
   const handleVistuser = (email, user_id) => {
@@ -48,8 +47,6 @@ function PeopleViewed() {
     navigate(`/user/${user_id}`)
   }
 
-
-  console.log(views)
 
   useEffect(() => {
     dispatch(fetchView())

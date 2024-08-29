@@ -17,7 +17,6 @@ const baseUrl = process.env.REACT_APP_API_URL
 
 export const fetchUser = createAsyncThunk('profile/fetchProfile', async () => {
     const userId = localStorage.getItem('skyn_userId')
-    console.log(userId)
     const response = await axios.get(`${baseUrl}/get/general?userId=${userId}`, {
         headers: {
             'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
@@ -45,7 +44,6 @@ export const updateUser = createAsyncThunk('profile/updateUser', async (userData
             'Content-Type': 'application/json'
         },
     });
-    console.log(response.data)
     return response.data;
 });
 
@@ -56,7 +54,6 @@ export const updateInfo = createAsyncThunk('profile/updateInfo', async (userData
             'Content-Type': 'application/json'
         }
     })
-    console.log(response)
     return response.data
 })
 
@@ -67,7 +64,6 @@ export const CreatHistory = createAsyncThunk('profile/creatHistroy', async (user
             'Content-Type': 'application/json'
         },
     });
-    console.log(response.data)
     return response.data;
 });
 
@@ -81,7 +77,6 @@ export const fetchHistory = createAsyncThunk('profile/getHistroy', async (userId
             'Content-Type': 'application/json'
         },
     });
-    console.log(response.data)
     return response.data;
 });
 
@@ -92,8 +87,6 @@ export const CreatTimeLine = createAsyncThunk('profile/CreatTimeLine', async (Ti
             'Content-Type': 'application/json'
         },
     });
-    console.log(TimeLineData)
-    console.log(response.data)
     return response.data;
 });
 
@@ -128,11 +121,19 @@ export const fetchUserTimeLine = createAsyncThunk('profile/fetchTimeLine', async
 const profileSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {},
+    reducers: {
+        setStatus: (state, action) => {
+            state.status = action.payload;
+        },
+        resetStatus: (state) => {
+            state.update_status = 'idle';
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUser.pending, (state) => {
                 state.status = 'loading';
+                state.update_status = 'idle'
             })
             .addCase(fetchUser.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -142,6 +143,7 @@ const profileSlice = createSlice({
             .addCase(fetchUser.rejected, (state, action) => {
                 state.status = 'failed';
                 state.error = action.error.message;
+                state.update_status = 'idle'
 
             })
 
@@ -156,19 +158,18 @@ const profileSlice = createSlice({
             .addCase(CreatHistory.rejected, (state, action) => {
                 state.update_status = 'failed';
                 state.error = action.error.message;
-                console.log(state.error)
 
             })
 
             .addCase(fetchHistory.pending, (state) => {
-                state.update_status = 'loading';
+                state.status = 'loading';
             })
             .addCase(fetchHistory.fulfilled, (state, action) => {
-                state.update_status = 'succeeded';
+                state.status = 'succeeded';
                 state.history = action.payload.body;
             })
             .addCase(fetchHistory.rejected, (state, action) => {
-                state.update_status = 'failed';
+                state.status = 'failed';
                 state.error = action.error.message;
             })
 
@@ -182,7 +183,6 @@ const profileSlice = createSlice({
             .addCase(CreatTimeLine.rejected, (state, action) => {
                 state.update_status = 'failed';
                 state.error = action.error.message;
-                console.log(state.error)
 
             })
 
@@ -216,18 +216,14 @@ const profileSlice = createSlice({
             })
             .addCase(updateUser.fulfilled, (state, action) => {
                 state.update_status = 'succeeded';
-                console.log("skdvkcsmkvmskmo")
             })
             .addCase(updateUser.rejected, (state, action) => {
                 state.update_status = 'failed';
                 state.error = action.error.message;
-                console.log(state.error)
-
             })
+    },
 
-
-    }
 });
-
+export const { setStatus, resetStatus } = profileSlice.actions;
 export default profileSlice.reducer;
 

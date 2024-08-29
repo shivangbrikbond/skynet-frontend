@@ -34,7 +34,6 @@ export default function MainProfile(props) {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response.data)
         const set = response.data.body.length === 0 ? true : false
         setActiveFollowButton(set)
     }
@@ -48,21 +47,21 @@ export default function MainProfile(props) {
             <div className='relative flex items-center justify-around'>
                 <div className=''>
 
-                    <div className='w-[100px] h-[100px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+                    <div className='lg:w-[100px] lg:h-[100px] md:h-[50px] md:w-[50px] h-[50px] w-[50px]' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
                         <img src={props.picture} alt="profileimage"
                             style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
                     </div>
 
                 </div>
-                <div className='relative font-normal md:text-xl  items-center md:p-4 p-2 justify-between leading-none flex flex-col text-black gap-3 py-3'>
-                    <h2 className='z-10 font-bold lg:text-[35.93px] md:text-[25.93px] text-[16px]'>{props.name}</h2>
-                    <div className=' w-337 h-45 font-normal text-base leading-none flex items-center justify-center text-center text-black relative'>
-                        <h2 className='relative z-10 w-[80%] lg:text-[18.93px] md:text-[14.93px] text-[10px] lg:2-[500px] md:w-[400px] w-[200px]' style={{ marginTop: '10%', maxWidth: '500px' }}>{props.aspirations}</h2>
+                <div className='font-normal md:text-xl md:p-4 p-2 justify-start flex flex-col text-black'>
+                    <h2 className='z-1 font-bold lg:text-[25.93px] text-center md:text-[20.93px] text-[14px]'>{props.name}</h2>
+                    <h2 className='relative w-[80%] lg:text-[14.93px] md:text-[11.93px] text-[8px] lg:2-[500px] md:w-[400px] w-[200px]' style={{ marginTop: '2%', maxWidth: '500px' }}>{props.aspirations}</h2>
+                    <div className='flex flex-row gap-7 text-start text-[14px]'
+                        style={{ fontWeight: 'bold' }}
+                    >
+                        <a href={`/followers/${props.userId} `}><p>{props?._count?.followers ? props?._count?.followers : 0} followers</p></a>
+                        <a href={`/following/${props.userId}`}><p>{props?._count?.following ? props?._count?.following : 0} following</p></a>
                     </div>
-                    {/* <div className='flex md:flex-row md:items-start gap-1 flex-col items-center'>
-                        <button className='relative  h-[30px]  flex flex-col justify-center items-center md:p-3 p-2  bg-[#EEEEEE] rounded-full font-inter font-medium text-[15px] text-black'>Student</button>
-                        <button className='relative  h-[30px] flex flex-col justify-center items-center md:p-3 p-2 bg-[#EEEEEE] rounded-full font-inter font-medium text-[15px] text-black'>Developer</button>
-                    </div> */}
                 </div>
 
                 <div className='mt-10'>
@@ -81,7 +80,7 @@ export default function MainProfile(props) {
                 </div >
                 <div className='flex flex-col items-start gap-3'>
                     <div className='flex flex-row gap-5 items-center'>
-                        <h5 className='z-10 font-normal lg:text-[29.93px] md:text-[18.93px] text-[15px]'>Summary</h5>
+                        <h5 className=' font-normal lg:text-[22.93px] md:text-[16.93px] text-[10px]'>Summary</h5>
 
                         {
                             props.edit === false
@@ -99,7 +98,7 @@ export default function MainProfile(props) {
 
                     </div>
 
-                    <div className='font-noto-serif font-normal lg:text-[15.93px] md:text-[10.93px] text-[11px] text-black' style={{ width: '80%', lineHeight: '20px' }}>{props.bio}</div>
+                    <div className='font-noto-serif font-normal lg:text-[15.93px] md:text-[10.93px] text-[11px] text-black' style={{ width: '80%', lineHeight: '20px', fontFamily: 'Source Sans Pro' }}>{props.bio}</div>
                 </div>
             </div>
         </div>

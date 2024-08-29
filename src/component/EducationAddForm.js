@@ -3,6 +3,7 @@ import './css/EducationAddForm.css'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { CreatHistory } from '../slicer/profileSlice'
+import profileSlice, { resetStatus } from '../slicer/profileSlice'
 
 function EducationAddForm(PURPOSE) {
 
@@ -10,7 +11,8 @@ function EducationAddForm(PURPOSE) {
   const navigate = useNavigate('');
   const userId = localStorage.getItem('skyn_userId')
 
-  const status = useSelector((state) => state.profile.update_status);
+
+  const status_update = useSelector((state) => state.profile.update_status);
   const error = useSelector((state) => state.profile.error);
   const [showError, setShowError] = useState(false)
 
@@ -24,14 +26,15 @@ function EducationAddForm(PURPOSE) {
   });
 
   useEffect(() => {
-    if (status === 'succeeded') {
+    if (status_update === 'succeeded') {
+      dispatch(resetStatus())
       navigate('/profile')
+      // window.location.reload();
     }
-  }, [status, dispatch])
+  }, [status_update, dispatch])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setFormData({
       ...formData,
       [name]: value,
@@ -41,10 +44,6 @@ function EducationAddForm(PURPOSE) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(CreatHistory(formData))
-    // if (status === 'succeeded') {
-    //   navigate('/profile')
-    // }
-    console.log(formData);
   };
 
   const handleCancel = () => {

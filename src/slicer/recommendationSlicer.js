@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-
 const initialState = {
-  search: [],
+  recommendation: [],
   sector: '',
   expirence: '',
   jobtitle: '',
@@ -14,18 +13,10 @@ const initialState = {
 
 const baseUrl = process.env.REACT_APP_API_URL
 
-export const featchSearch = createAsyncThunk('search/featchSearch', async (name, { getState, dispatch }) => {
-  const sector = getState().search.sector;
-  const experience = getState().search.expirence;
-
+export const featchRecommendation = createAsyncThunk('search/featchSuggestion', async () => {
   const user_id = localStorage.getItem('skyn_userId')
 
-  if (name === undefined) {
-    name = '';
-  }
-
-
-  const response = await axios.get(`${baseUrl}/get/filter/${user_id}?name=${name}&sector=${sector}&experience=${experience}&jobTitle`, {
+  const response = await axios.get(`${baseUrl}/get/recommendation/${user_id}`, {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
       'Content-Type': 'application/json'
@@ -35,8 +26,8 @@ export const featchSearch = createAsyncThunk('search/featchSearch', async (name,
 });
 
 
-const searchSlice = createSlice({
-  name: 'search',
+const recommendationSlice = createSlice({
+  name: 'recommendation',
   initialState,
   reducers: {
     setSector: (state, action) => {
@@ -54,7 +45,7 @@ const searchSlice = createSlice({
       } else {
         state.expirence = action.payload;
       }
-    },
+    }
   },
   extraReducers: (builder) => {
 
@@ -62,20 +53,19 @@ const searchSlice = createSlice({
 
 
       // Fetch posts cases
-      .addCase(featchSearch.pending, (state) => {
+      .addCase(featchRecommendation.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(featchSearch.fulfilled, (state, action) => {
+      .addCase(featchRecommendation.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.search = action.payload.body;
+        state.recommendation = action.payload.body;
       })
-      .addCase(featchSearch.rejected, (state, action) => {
+      .addCase(featchRecommendation.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
 
   }
 });
-
-export const { setSector, setexpirence } = searchSlice.actions;
-export default searchSlice.reducer;
+export const { setSector, setexpirence } = recommendationSlice.actions;
+export default recommendationSlice.reducer;
