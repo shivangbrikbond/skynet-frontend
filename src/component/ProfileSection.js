@@ -7,8 +7,10 @@ const Post = ({ profileImage = { avatar }, Name, Job, Post, Skills }) => {
     <div className="flex items-center justify-around">
       <button className="flex justify-around items-center md:gap-20 gap-4 lg:gap-28 text-center">
         <div className="flex flex-row gap-2">
-          <div className="h-12 w-12 overflow-hidden rounded-full">
-            <img src={profileImage} width={"100%"} height={"100%"} />
+          <>naflwiviwrvwsj</>
+          <div className='w-[30px] h-[30px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+            <img src={profileImage} alt="profileimage"
+              style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-2">

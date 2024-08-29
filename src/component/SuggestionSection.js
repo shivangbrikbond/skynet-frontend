@@ -9,8 +9,8 @@ const Suggestions = ({ profileImage, Name, Post, purpose, userId }) => {
     }
 
     return (
-        <button className='flex flex-row items-center justify-start md:gap-2 hover:scale-105' style={{ marginLeft: "30px" }} onClick={handleClick}>
-            <div className='w-[45px] h-[45px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+        <button className='flex flex-row items-center justify-start md:gap-2 hover:scale-105' style={{ marginLeft: "10px" }} onClick={handleClick}>
+            <div className='w-[50px] h-[50px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
                 <img src={profileImage} alt="profileimage"
                     style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
             </div>
@@ -19,7 +19,7 @@ const Suggestions = ({ profileImage, Name, Post, purpose, userId }) => {
                     <p className='text-[13px]'>{Name} &nbsp; </p>
                     <span className='md:text-[8px] lg:text-[10px] text-[8px] text-black'>{purpose}</span>
                 </div>
-                <p className=' text-[9px] flex flex-row gap-2 justify-between' style={{ width: 'fit-content', marginLeft: '0px' }}>{Post}</p>
+                {/* <p className=' text-[9px] flex flex-row gap-2 justify-between' style={{ width: 'fit-content', marginLeft: '0px' }}>{Post}</p> */}
             </div>
         </button>
     )
