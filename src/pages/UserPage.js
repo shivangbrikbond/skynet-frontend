@@ -30,7 +30,7 @@ function UserPage() {
     }, [dispatch]);
 
     return (
-        <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '5%' }}>
+        <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '60px' }}>
             <div className='col-span-1'></div>
             <div className='relative flex flex-col gap-3 col-span-6 md:col-span-6'>
                 <div className='relative flex flex-col gap-10 divMargin'>
