@@ -15,18 +15,17 @@ export default function TimeLineCards({ cards_bg, line_color, duration_display, 
 
     const handledelete = async (id) => {
         const response = await axios.delete(`http://localhost:6898/api/v1/users/history/delete/${id}`, { withCredentials: true })
-        console.log(response.data)
         window.location.reload();
     }
 
 
 
     return (
-        <li class="mb-15 lg:ml-10 md:ml-5 ml-5  w-[100%]">
+        <li class="mb-15 lg:ml-10 md:ml-5  w-[100%]">
             <div>
                 <div class="absolute lg:h-7 lg:w-7 md:w-6 md:h-6 w-3 h-3  bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                 <div class="flex flex-row justify-between">
-                    <time class="mb-1 lg:text-[15px] md:text-[12px] text-[9px] font-normal leading-none text-gray-400 dark:text-gray-500">{start_date} &nbsp; {end_date}</time>
+                    <time class="mb-1 lg:text-[13px] md:text-[12px] text-[9px] font-normal leading-none text-gray-400 dark:text-gray-500">{start_date} &nbsp; {end_date}</time>
                     <div className='flex flex-row gap-5' style={{ marginLeft: '10%' }}>
                         {/* {edit === true ?
                             <><RiDeleteBin4Fill size={30} onClick={() => handledelete(id)} className={` ${edit_display}`} />
@@ -36,10 +35,8 @@ export default function TimeLineCards({ cards_bg, line_color, duration_display, 
                     </div>
                 </div>
 
-                <h3 class="text-lg font-semibold lg:text-[25px] md:text-[20px] text-[15px] text-gray-900 dark:text-white">{title}</h3>
-                <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{description}</p>
-                <br />
-                <br />
+                <h3 class="text-lg font-semibold lg:text-[22px] md:text-[18px] text-[15px] text-gray-900 dark:text-white">{title}</h3>
+                <p class="mb-4 font-normal text-gray-500 lg:text-[15px] md:text-[12px] text-[12px] dark:text-gray-400">{description}</p>
                 <br />
 
 

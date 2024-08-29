@@ -9,16 +9,17 @@ const Suggestions = ({ profileImage, Name, Post, purpose, userId }) => {
     }
 
     return (
-        <button className='flex flex-row items-center gap-2 justify-start md:gap-4 hover:scale-105' style={{ marginLeft: "20" + "px" }} onClick={handleClick}>
-            <div className='w-[65px] h-[65px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+        <button className='flex flex-row items-center justify-start md:gap-2 hover:scale-105' style={{ marginLeft: "30px" }} onClick={handleClick}>
+            <div className='w-[45px] h-[45px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
                 <img src={profileImage} alt="profileimage"
                     style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
             </div>
             <div className='flex flex-col items-start' style={{ maxWidth: '200px' }}>
-                <div className='flex flex-row gap-5 justify-between'>
-                    <p >{Name} &nbsp; <span className='font-inter font-normal leading-normal md:text-[12px] lg:text-[12px] text-[10px] text-black'>{purpose}</span></p>
+                <div className='flex flex-col items-start'>
+                    <p className='text-[13px]'>{Name} &nbsp; </p>
+                    <span className='md:text-[8px] lg:text-[10px] text-[8px] text-black'>{purpose}</span>
                 </div>
-                <p className=' text-[10px] flex flex-row gap-2 justify-between' style={{ width: 'fit-content', marginLeft: '0px' }}>{Post}</p>
+                <p className=' text-[9px] flex flex-row gap-2 justify-between' style={{ width: 'fit-content', marginLeft: '0px' }}>{Post}</p>
             </div>
         </button>
     )

@@ -21,24 +21,23 @@ export default function EducationCards({ cards_bg, line_color, duration_display,
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response.data)
         window.location.reload();
     }
 
 
 
     return (
-        <div className='relative w-[90%]  flex flex-col gap-2' >
+        <div className='relative w-[90%]  flex flex-col' >
             <div className='flex flex-row items-center'>
                 {/* <div class={`w-4 h-4 ${line_color} rounded-full`}></div> */}
                 <div className={`flex flex-row w-[90%]  ${cards_bg}  rounded-2xl`}>
-                    <div className='relative flex flex-col p-5 gap-3 w-[90%]'>
-                        <h5 className={`flex-grow font-inter ${font_weight} text-[26.208px] leading-[26px] flex items-center text-black backdrop-blur-3xl`}>
+                    <div className='relative flex flex-col p-5 gap-1 w-[90%]'>
+                        <h5 className={`flex-grow font-inter ${font_weight} text-[21.208px] leading-[20px] flex items-center text-black backdrop-blur-3xl`}>
                             {title}
                         </h5>
-                        <h3 className={`h-18 font-inter font-normal md:text-[17.92px] text-[12px] leading-[23px] text-[#7E7C7C] ${duration_display}`}>{start_date} - {end_date}</h3>
-                        <h3 className='font-noto-serif font-medium md:text-[17.92px] text-[12px]  leading-[19px] flex items-center text-black backdrop-blur-sm'>{description}</h3>
-                        <h3 className={`font-noto-serif font-medium md:text-[17.92px] text-[12px]  leading-[19px] ${skills_display} items-center text-black backdrop-blur-sm`}>{skills}</h3>
+                        <h3 className={`h-18 font-inter font-normal md:text-[15px] text-[12px] leading-[23px] text-[#7E7C7C] ${duration_display}`}>{start_date} - {end_date}</h3>
+                        <h3 className='font-noto-serif font-medium md:text-[15px] text-[12px]  leading-[19px] flex items-center text-black backdrop-blur-sm'>{description}</h3>
+                        <h3 className={`font-noto-serif font-medium md:text-[15px] text-[12px]  leading-[19px] ${skills_display} items-center text-black backdrop-blur-sm`}>{skills}</h3>
                     </div>
                     <div className='flex flex-col items-end w-[80%] p-5'>
                         <div className='flex'>

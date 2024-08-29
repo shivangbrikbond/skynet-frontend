@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import logo from "../asset/logo.jpg";
 import { Link } from "react-router-dom";
 import { MdOutlineSearch } from "react-icons/md";
@@ -19,6 +19,7 @@ const Navbar = ({ activeButton, setActiveButton }) => {
   const [navOpen, setNavOpen] = useState(false);
 
   const dispatch = useDispatch();
+  const prevLocation = useRef(location.pathname);
 
   const picture = localStorage.getItem('profile_pic')
 
@@ -50,11 +51,11 @@ const Navbar = ({ activeButton, setActiveButton }) => {
   return (
     <div className="w-screen h-screen flex flex-col overflow-x-hidden bg-[#F5F5F5]">
 
-      <div className={`flex justify-between items-center shadow-md w-full h-[70px] py-1  ${NavBg}`}
-        style={{ filter: 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25))' }}
+      <div className={`flex justify-between items-center shadow-md w-full h-[70px] py-1  ${NavBg} fixed`}
+        style={{ filter: 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25))', overflow: 'visible', zIndex: '2' }}
       >
 
-        <div className="flex flex-row md:gap-9 gap-2 justify-start px-1 md:mx-3 mx-1 py-4">
+        {<div className="flex flex-row md:gap-9 gap-2 justify-start px-1 md:mx-3 mx-1 py-4">
           <Link to="/" className="py-7">
             {/* <img src={logo} alt="logo" margin="2px" width="55.55px" height="55px" */}
             <img
@@ -81,14 +82,14 @@ const Navbar = ({ activeButton, setActiveButton }) => {
               </div>
               <input
                 type="text"
-                className="bg-[#F3EDF7] flex-shrink lg:w-[25vw] h-[52px] rounded-r-md lg:shadow-md"
+                className="bg-[#F3EDF7] flex-shrink lg:w-[25vw] z-10 h-[52px] rounded-r-md lg:shadow-md"
                 name="email"
                 style={{ borderColor: '#F3EDF7' }}
                 onChange={(e) => handleSearchChange(e.target.value)}
               />
             </div>
           </Link>
-        </div>
+        </div>}
 
         <div>
           <div
@@ -146,8 +147,8 @@ const Navbar = ({ activeButton, setActiveButton }) => {
       </div>
       {/* Mobile Navigation */}
       {navOpen && (
-        <div className={`md:hidden flex items-center justify-around ${NavBg} fixed duration-1000 top-0 w-full h-[80px] pb-2 ${navOpen ? "left-0" : "left-[-100%]"}`}
-        // style={{ marginLeft: '8px' }}
+        <div className={`md:hidden flex items-center relative z-100 justify-around ${NavBg} duration-1000 top-0 w-full h-[80px] pb-2 ${navOpen ? "left-0" : "left-[-100%]"}`}
+          style={{ zIndex: '3' }}
         >
 
           <div className={`gap-12 text-xl flex justify-between m-4 mt-6`}>
@@ -186,28 +187,3 @@ const Navbar = ({ activeButton, setActiveButton }) => {
 };
 
 export default Navbar;
-
-// {navOpen && (
-//     <div className="fixed left-0 w-full h-full   top-0 bg-black bg-opacity-75 z-50 flex flex-col items-center justify-center text-white">
-//       <div
-//         className="lg:hidden flex justify-center items-center m-4"
-//         onClick={() => setNavOpen(!navOpen)}
-//       >
-//         {navOpen ? <RxCross2 /> : <CiMenuFries />}
-//       </div>
-//       <div className="flex flex-col gap-8 text-xl">
-//         <Link to="/" onClick={() => setNavOpen(!navOpen)}>
-//           Home
-//         </Link>
-//         <Link to="/setting" onClick={() => setNavOpen(!navOpen)}>
-//           Notifications
-//         </Link>
-//         <Link to="/chat" onClick={() => setNavOpen(!navOpen)}>
-//           Message
-//         </Link>
-//         <Link to="/profile" onClick={() => setNavOpen(!navOpen)}>
-//           Profile
-//         </Link>
-//       </div>
-//     </div>
-//   )}

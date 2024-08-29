@@ -11,7 +11,7 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
         <div>
             <div className='relative w-[100%] bg-[#FFFFFF] rounded-md shadow-md bg-opacity-40 pb-24' style={{ backgroundColor: 'white' }}>
                 <div className='flex flex-row p-10 items-center'>
-                    <h1 className='font-david-libre font-normal text-[40.7347px] leading-[41px] flex-grow text-center'>
+                    <h1 className='font-david-libre font-normal text-[25.7347px] leading-[25px] flex-grow text-center'>
                         Personal Details
                     </h1>
                     {edit === true ?
@@ -20,10 +20,10 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                     }
 
                 </div>
-                <div class="grid lg:grid-cols-2 grid-cols-1 gap-[30px] pt-6">
+                <div class="grid lg:grid-cols-2 grid-cols-1 gap-[25px] pt-6">
                     <div>
                         {/* <h5 class="text-xl font-semibold">Personal Details :</h5> */}
-                        <div class="mt-6 mx-10">
+                        <div class="mx-10">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail fea icon-ex-md text-slate-400 mr-3">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -69,8 +69,8 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                         </div>
                     </div>
 
-                    <div class="lg:mt-0 mx-10">
-                        <div class="flex items-center mt-3">
+                    <div class="mx-10">
+                        <div class="flex items-center">
                             <svg width="25" height="25" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="feather feather-map-pin fea icon-ex-md text-slate-400 mr-3">
                                 <defs>
                                     <style>{".cls-1{fill:rgb(148 163 184)}"}</style>
@@ -116,18 +116,6 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                         </div>
                     </div>
                 </div>
-                {/* <div className='relative flex flex-col mx-9 items-start'>
-                    <h4 className='font-medium pt-1' >AboutJob:  <span class="font-normal px-2">  {aboutJobTitle}</span></h4>
-                    <h4 className='font-medium pt-1'>AboutYou: <span class="font-normal px-2">  {aboutYou}</span></h4>
-                    <h4 className='font-medium pt-1'>City: <span class="font-normal px-2">  {city}</span></h4>
-                    <h4 className='font-medium pt-1'>Email:  <span class="font-normal px-2">  {email}</span></h4>
-                    <h4 className='font-medium pt-1'>Experience: <span class="font-normal px-2">  {experience}</span></h4>
-                    <h4 className='font-medium pt-1'>GitHub: <span class="font-normal px-2">  {githubURL}</span></h4>
-                    <h4 className='font-medium pt-1'>Job Title: <span class="font-normal px-2">  {jobTitle}</span></h4>
-                    <h4 className='font-medium pt-1'>LinkedIn: <span class="font-normal px-2">  {linkedInURL}</span></h4>
-                    <h4 className='font-medium pt-1'>Phone No: <span class="font-normal px-2"> {phoneCode} {phone}</span></h4>
-                    <h4 className='font-medium pt-1'>purpose: <span class="font-normal px-2">  {purpose}</span></h4>
-                </div> */}
             </div>
         </div>
     )

@@ -19,11 +19,9 @@ export const registerUser = createAsyncThunk(
 
     try {
       if (userData.password !== userData.confirmpassword) {
-        console.log("->", userData)
         return rejectWithValue({ message: 'Password do not match' });
       }
       const response = await axios.post(`${baseUrl}/register`, dataToSend);
-      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -59,7 +57,6 @@ export const loginUser = createAsyncThunk(
       );
 
       // Return the response data on success
-      console.log(response.data)
       return response.data;
     } catch (error) {
       // Handle error and provide detailed information if available
@@ -88,7 +85,6 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.register_status = 'succeeded';
         state.user = action.payload;
-        console.log(action);
         localStorage.setItem('skyn_token', action.payload["token"])
         localStorage.setItem('skyn_userId', action.payload.user["userId"])
         localStorage.setItem('skyn_email', action.payload.user["email"])
@@ -101,8 +97,6 @@ const authSlice = createSlice({
         state.register_status = 'failed';
         state.error = action.payload;
         state.message = action.payload.message || 'Registration failed';
-        console.log(state.message)
-        console.log(state.error)
       })
 
       .addCase(loginUser.pending, (state) => {
@@ -117,7 +111,6 @@ const authSlice = createSlice({
         localStorage.setItem('skyn_userId', action.payload.loginUser["userId"])
         localStorage.setItem('skyn_email', action.payload.loginUser["email"])
         localStorage.setItem('profile_pic', action.payload.loginUser["profilePic"])
-        console.log(action.payload.loginUser["email"])
         state.error = null;
         state.message = '';
       })

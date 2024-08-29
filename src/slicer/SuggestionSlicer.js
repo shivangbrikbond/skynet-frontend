@@ -19,7 +19,6 @@ export const featchSuggestion = createAsyncThunk('search/featchSuggestion', asyn
             'Content-Type': 'application/json'
         }
     })
-    //console.log(response.data.body)
     return response.data;
 });
 

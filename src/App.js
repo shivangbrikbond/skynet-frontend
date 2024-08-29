@@ -34,6 +34,8 @@ import UserPage from "./pages/UserPage";
 
 import EditMe from "./component/EditMe";
 import Profile from "./component/Profile";
+import FollowersPage from "./pages/FollowersPage";
+import FollowingPage from "./pages/FollowingPage";
 
 function App() {
   const [activeButton, setActiveButton] = useState('');
@@ -119,6 +121,17 @@ function App() {
             <GrowNetworkPage />
           </ProtectedRoute>
           } />
+        <Route path='/following/:userId' element={
+          <ProtectedRoute >
+            <FollowingPage />
+          </ProtectedRoute>
+          }></Route>
+          <Route path='/followers/:userId' element={
+          <ProtectedRoute >
+            <FollowersPage />
+            {/* <RecommendationPage /> */}
+          </ProtectedRoute>
+          }></Route> 
         <Route path="/view" element={
           <ProtectedRoute>
             <PeopleViewed />

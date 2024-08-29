@@ -83,7 +83,6 @@ function AddPost() {
           Body: file,
         };
         var upload = await s3.putObject(params).promise();
-        console.log(upload);
         const formData = {
           mediaLink: [`https://skynect.s3.amazonaws.com/${params.Key}`],
           caption,
@@ -126,7 +125,7 @@ function AddPost() {
           {/* <!-- Form - create your endpoint on Getform and start using this form --> */}
           <form class="w-full flex flex-col justify-center items-center" onSubmit={handleSubmit}>
             <div className='h-[400px] w-[400px]' style={{ overflow: 'hidden' }}>
-              <img src={image} style={{ height: 'auto', width: '100%' }}></img>
+              <img src={image === '' ? 'https://removal.ai/wp-content/uploads/2021/02/no-img.png' : image} style={{ height: 'auto', width: '100%' }}></img>
             </div>
             <input
               name="caption"

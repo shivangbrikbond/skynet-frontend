@@ -8,7 +8,7 @@ import { CreatView } from '../slicer/profileViewSlice';
 import RecommendationFilter from '../component/RecommendationFilter';
 
 
-export default function FollowersPage() {
+export default function FollowingPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -21,8 +21,6 @@ export default function FollowersPage() {
     const [idUArray, setidUArray] = useState([]);
     const baseUrl = process.env.REACT_APP_API_URL
     const search_data = useSelector((state) => state.search.search)
-
-
     const handleFollow = (id) => {
         const data = {
             followeeUserId: localStorage.getItem('skyn_userId'),
@@ -74,7 +72,7 @@ export default function FollowersPage() {
 
     useEffect(() => {
         (async function () {
-            const response = await axios.get(`${baseUrl}/getFollowing/${userId}`, {
+            const response = await axios.get(`${baseUrl}/getFollowers/${userId}`, {
                 headers: {
                     'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
                     'Content-Type': 'application/json'

@@ -32,7 +32,6 @@ function BioEdit() {
       setAspirations(userdata.aspirations || '');
       setProfilePic(userdata.profilePic || '')
     }
-    console.log(userdata)
   }, [userdata]);
 
   const compressImage = (file, maxSizeMB = 1, callback) => {
@@ -97,7 +96,6 @@ function BioEdit() {
             Body: compFile,
           };
           var upload = await s3.putObject(params).promise();
-          console.log(upload);
           const formData = {
             profilePic: `https://skynect.s3.amazonaws.com/${params.Key}`,
             bio: summary,
