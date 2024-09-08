@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser, updateUser } from '../slicer/profileSlice';
 import { useNavigate } from 'react-router-dom';
+import { CloseEditMe } from '../slicer/ModelSlicer';
+import { MdCancel } from "react-icons/md";
 
-function EditMe() {
+
+function EditMe({ isOpen }) {
+  if (!isOpen) return null;
+
   // State hooks
   const [githubURL, setGithubURL] = useState('');
   const [companyId, setCompanyId] = useState('');
@@ -13,11 +18,25 @@ function EditMe() {
   const [aboutJobTitle, setAboutJobTitle] = useState('');
   const [linkedInURL, setLinkedInURL] = useState('');
   const [experience, setExperience] = useState('');
+  const [warn, setWarn] = useState(true);
+
+  const [Tags, setTags] = useState([])
+
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userdata = useSelector((state) => state.profile.profile);
-  const status = useSelector((state) => state.profile.update_status)
+  const status = useSelector((state) => state.profile.update_status);
+
+  function validateGitHubUsernameURL(url) {
+    const githubRegex = /^https:\/\/github\.com\/[A-Za-z0-9-]+(\/.*)?(\?.*)?$/;
+    return githubRegex.test(url);
+  }
+
+  function validateLinkedInUsernameURL(url) {
+    const linkedInRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+(\/.*)?(\?.*)?$/;
+    return linkedInRegex.test(url);
+  }
 
   // Fetch user data on mount and initialize form fields
   useEffect(() => {
@@ -27,7 +46,8 @@ function EditMe() {
 
   useEffect(() => {
     if (status === 'succeeded') {
-      navigate('/profile')
+      navigate('/profile');
+      dispatch(CloseEditMe())
     }
   })
 
@@ -41,32 +61,73 @@ function EditMe() {
       setAboutJobTitle(userdata.aboutJobTitle || '');
       setLinkedInURL(userdata.linkedInURL || '');
       setExperience(userdata.experience || '');
+      setTags(userdata.tags || '')
     }
   }, [userdata]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = {
-      userId: localStorage.getItem('skyn_userId'),
-      githubURL,
-      companyId,
-      city,
-      jobTitle,
-      linkedInURL,
-      purpose,
-      experience,
-      aboutJobTitle
-    };
-    dispatch(updateUser(formData));
+    if (githubURL != '' && !validateGitHubUsernameURL(githubURL)) { console.log("good"), setWarn(false); }
+    else if (linkedInURL != '' && !validateLinkedInUsernameURL(linkedInURL)) setWarn(false);
+    else if (experience != '' && experience < 0) setWarn(false);
+    else {
+      const formData = {
+        userId: localStorage.getItem('skyn_userId'),
+        githubURL,
+        companyId,
+        city,
+        jobTitle,
+        linkedInURL,
+        purpose,
+        experience,
+        aboutJobTitle,
+        tags: Tags
+      };
+      setWarn(true)
+      dispatch(updateUser(formData));
+    }
   };
 
+  const addTags = (text) => {
+    setTags((prevTags) => {
+      // Check if the tag already exists in the previous state
+      if (!prevTags.some(tag => tag === text)) {
+        const newTag = text;
+        return [...prevTags, newTag];
+      }
+      return prevTags; // Return the existing tags if the tag already exists
+    });
+  };
+
+  const removeTags = (text) => {
+    setTags(Tags.filter(task => task !== text));
+  }
+
+  const Tags_list = [
+    'study',
+    'open for work',
+    'open for newtork',
+    'Creativity',
+    'TimeManagement',
+    'CriticalThinking',
+    'CommunicationSkills',
+    'ProblemSolving',
+    'Teamwork',
+    'Adaptability',
+    'ResearchSkills'
+  ]
+
   return (
-    <div className='flex justify-center items-center'>
-      <div className='register'>
+    <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50'>
+      <div className='bg-white p-6 rounded-lg shadow-lg max-w-sm w-full'>
         <form onSubmit={handleSubmit}>
-          <h1 className='register-heading'>Bio Edit</h1>
+          <div className='border-b-2 mb-7 border-black'>
+            <h1 className='text-2xl font-semibold'>Bio Edit</h1>
+          </div>
+
           <input
+            className="w-full border-2 border-black rounded-lg"
             type='text'
             name='githubURL'
             value={githubURL}
@@ -75,6 +136,7 @@ function EditMe() {
           />
           <select
             name='purpose'
+            className="w-full my-1 border-2 border-black rounded-lg"
             value={purpose}
             onChange={(e) => setPurpose(e.target.value)}
           >
@@ -92,6 +154,7 @@ function EditMe() {
             <option value="NETWORK">Network</option>
           </select>
           <input
+            className="w-full my-1 border-2 border-black rounded-lg"
             type='text'
             name='city'
             placeholder='Enter your city'
@@ -99,32 +162,69 @@ function EditMe() {
             onChange={(e) => setCity(e.target.value)}
           />
           <input
+            className="w-full my-1 border-2 border-black rounded-lg"
+            type='text'
+            name='city'
+            placeholder='Enter your Linkedin url'
+            value={linkedInURL}
+            onChange={(e) => setLinkedInURL(e.target.value)}
+          />
+          <input
+            className="w-full my-1 border-2 border-black rounded-lg"
             type='text'
             name='jobTitle'
             placeholder='Enter your job title'
             value={jobTitle}
             onChange={(e) => setJobTitle(e.target.value)}
           />
+          <div className='pt-3'>
+            <p className='py-3 text-base font-medium'>Tags :</p>
+            <div className="w-full min-h-[68px] max-h-auto  rounded-lg border-2 border-black">
+              <div className='flex flex-wrap'>
+                {
+                  Tags.map((data) => {
+                    console.log(data.texts)
+                    return (
+                      <div className="px-2 py-1 bg-gray-200 m-1 flex justify-center items-center gap-2" >
+                        <p className=" text-sm">{data}</p>
+                        <MdCancel className="" onClick={() => removeTags(data)} />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+            <div className="flex flex-wrap mt-3">
+              {
+                Tags_list.map((data) => {
+
+                  return (
+                    <div className="px-2 py-1 bg-gray-200 m-1 " onClick={() => addTags(data)} >
+                      <p className=" text-sm">{data}</p>
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>
           <input
-            type='text'
-            name='linkedInURL'
-            placeholder='Enter your LinkedIn URL'
-            value={linkedInURL}
-            onChange={(e) => setLinkedInURL(e.target.value)}
-          />
-          <input
+            className="w-full my-1 border-2 border-black rounded-lg"
             type='number'
             name='experience'
             placeholder='Enter your experience'
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
           />
-          <div className='flex flex-row items-center gap-10'>
-            <button type='submit'>Save</button>
+          {warn == false && <div class="warning-msg">
+            <i class="fa fa-warning"></i>
+            Please input correct values.
+          </div>}
+          <div className='flex justify-between items-center mt-3'>
+            <button type='submit' className='px-3 py-1 bg-blue-500 rounded-lg text-white'>Save</button>
             <button
-              className='my-3 bg-red-500'
+              className='px-3 py-1 bg-red-500 rounded-lg text-white'
               type='button'
-              onClick={() => navigate('/profile')}
+              onClick={() => dispatch(CloseEditMe())}
             >
               Cancel
             </button>

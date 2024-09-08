@@ -9,6 +9,7 @@ import { CreatView } from '../slicer/profileViewSlice';
 function PeopleViewed() {
 
   const views = useSelector((state) => state.profileview.views)
+  const profile = useSelector((state) => state.profile.profile);
 
 
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ function PeopleViewed() {
   const handleFollow = (id) => {
     const data = {
       followeeUserId: localStorage.getItem('skyn_userId'),
-      followerUserId: id
+      followerUserId: id,
+      name: profile.name,
+      picture: profile.profilePic
     }
     axios.post(`${baseUrl}/follow`, data, {
       headers: {

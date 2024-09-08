@@ -13,6 +13,7 @@ export default function FollowingPage() {
     const navigate = useNavigate();
 
     const suggestion = useSelector((state) => state.suggestion.suggestions)
+    const profile = useSelector((state) => state.profile.profile);
     const [user, setUser] = useState('');
 
     // const 
@@ -24,7 +25,9 @@ export default function FollowingPage() {
     const handleFollow = (id) => {
         const data = {
             followeeUserId: localStorage.getItem('skyn_userId'),
-            followerUserId: id
+            followerUserId: id,
+            name: profile.name,
+            picture: profile.profilePic
         }
         axios.post(`${baseUrl}/follow`, data, {
             headers: {

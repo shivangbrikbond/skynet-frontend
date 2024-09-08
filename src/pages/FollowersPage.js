@@ -21,12 +21,15 @@ export default function FollowersPage() {
     const [idUArray, setidUArray] = useState([]);
     const baseUrl = process.env.REACT_APP_API_URL
     const search_data = useSelector((state) => state.search.search)
+    const profile = useSelector((state) => state.profile.profile);
 
 
     const handleFollow = (id) => {
         const data = {
             followeeUserId: localStorage.getItem('skyn_userId'),
-            followerUserId: id
+            followerUserId: id,
+            picture: profile.profilePic,
+            name: profile.name
         }
         axios.post(`${baseUrl}/follow`, data, {
             headers: {

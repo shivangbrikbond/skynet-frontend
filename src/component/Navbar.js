@@ -16,12 +16,13 @@ import { IoChatbox } from "react-icons/io5";
 
 const Navbar = ({ activeButton, setActiveButton }) => {
   const location = useLocation();
+  const profile = useSelector((state) => state.profile.profile);
   const [navOpen, setNavOpen] = useState(false);
 
   const dispatch = useDispatch();
   const prevLocation = useRef(location.pathname);
 
-  const picture = localStorage.getItem('profile_pic')
+  const picture = profile.profilePic
 
 
   const handleSearchChange = (name) => {
@@ -113,7 +114,7 @@ const Navbar = ({ activeButton, setActiveButton }) => {
             </li>
             <li>
               <Link
-                to="/setting"
+                to="/notification"
                 className="flex flex-col text-sm justify-center items-center"
               >
                 <FaBell size={30} />

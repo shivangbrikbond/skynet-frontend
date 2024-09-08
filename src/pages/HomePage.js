@@ -4,7 +4,7 @@ import Explore from '../component/Explore';
 import Newpost from '../component/Newpost';
 import Post from '../component/Post';
 import Suggestions from '../component/Suggestions';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import HomeBackground from '../asset/HomeBackground.png'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchPosts } from '../slicer/postSlicer'
@@ -20,10 +20,11 @@ export default function Homepage() {
   const status = useSelector((state) => state.auth.status);
   const error = useSelector((state) => state.auth.error);
   const posts = useSelector((state) => state.post.posts);
+  const userId = localStorage.getItem('skyn_userId')
 
 
   useEffect(() => {
-    dispatch(fetchPosts())
+    dispatch(fetchPosts(userId))
 
   }, [dispatch])
 

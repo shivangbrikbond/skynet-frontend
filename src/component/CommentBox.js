@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaReply, FaUserCircle, FaHeart, FaArrowAltCircleRight } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 function CommentBox({ postId }) {
   const user_id = localStorage.getItem('skyn_userId');
   const baseUrl = process.env.REACT_APP_API_URL
+  const profile = useSelector((state) => state.profile.profile);
+  console.log(profile)
 
   const [comments, setComments] = useState([]);
   // const [commentCount, setCommentCount] = useState(c)
@@ -102,6 +105,8 @@ function CommentBox({ postId }) {
 
     const updatedFormData = {
       ...formData,
+      picture: profile.profilePic,
+      name: profile.name
     };
 
     try {

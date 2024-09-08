@@ -7,6 +7,7 @@ const initialState = {
   sector: '',
   expirence: '',
   jobtitle: '',
+  tag: '',
   status: 'idle',
   error: null,
   message: ''
@@ -17,6 +18,8 @@ const baseUrl = process.env.REACT_APP_API_URL
 export const featchSearch = createAsyncThunk('search/featchSearch', async (name, { getState, dispatch }) => {
   const sector = getState().search.sector;
   const experience = getState().search.expirence;
+  const tag = getState().search.tag;
+  console.log(tag)
 
   const user_id = localStorage.getItem('skyn_userId')
 
@@ -25,7 +28,7 @@ export const featchSearch = createAsyncThunk('search/featchSearch', async (name,
   }
 
 
-  const response = await axios.get(`${baseUrl}/get/filter/${user_id}?name=${name}&sector=${sector}&experience=${experience}&jobTitle`, {
+  const response = await axios.get(`${baseUrl}/get/filter/${user_id}?name=${name}&sector=${sector}&experience=${experience}&tag=${tag}`, {
     headers: {
       'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
       'Content-Type': 'application/json'
@@ -44,6 +47,15 @@ const searchSlice = createSlice({
         state.sector = '';
       } else {
         state.sector = action.payload;
+      }
+
+    },
+
+    setTag: (state, action) => {
+      if (action.payload === "all") {
+        state.tag = '';
+      } else {
+        state.tag = action.payload;
       }
 
     },
@@ -77,5 +89,5 @@ const searchSlice = createSlice({
   }
 });
 
-export const { setSector, setexpirence } = searchSlice.actions;
+export const { setSector, setexpirence, setTag } = searchSlice.actions;
 export default searchSlice.reducer;

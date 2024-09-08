@@ -11,9 +11,13 @@ import { fetchComment, likePost, unLikePost } from '../slicer/postSlicer'
 
 const Post = ({ width = 'w-[40vw]', user_name, posted_date, caption, comment_count, like_count, post_id, mediaLink, like, profilePic, landmark }) => {
 
+  const profile = useSelector((state) => state.profile.profile);
+
   const [showComponent, setShowComponent] = useState(false);
+
   const [liked, setLike] = useState(like.length == 0 ? 'grey' : 'blue');
   const [likeCount, setLikeCount] = useState(like_count);
+
 
   const dispatch = useDispatch();
   const createdDate = (new Date(posted_date)).toString();
@@ -26,7 +30,9 @@ const Post = ({ width = 'w-[40vw]', user_name, posted_date, caption, comment_cou
       postId: post_id,
       userId: localStorage.getItem('skyn_userId'),
       likeType: "POST",
-      commentId: ''
+      commentId: '',
+      name: profile.name,
+      picture: profile.profilePic
     }
     if (liked === 'grey') {
       dispatch(likePost(data))

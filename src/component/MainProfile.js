@@ -3,16 +3,25 @@ import avatar from "../asset/avtar.png";
 import axios from 'axios';
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom'
+import { OpenBioEdit, BioEditChek } from '../slicer/ModelSlicer';
+import { useSelector, useDispatch } from 'react-redux'
+import TestEdit from './TestEdit';
 
 export default function MainProfile(props) {
     const navigate = useNavigate('');
+    const dispatch = useDispatch();
+
+    const isOpenEdit = useSelector((state) => state.model.isBioEditOpen);
+    const profile = useSelector((state) => state.profile.profile);
 
     const [activeFollowButton, setActiveFollowButton] = useState(false);
     const baseUrl = process.env.REACT_APP_API_URL
     const handleFollow = (id) => {
         const data = {
             followeeUserId: localStorage.getItem('skyn_userId'),
-            followerUserId: id
+            followerUserId: id,
+            picture: profile.profilePic,
+            name: profile.name,
         }
         axios.post(`${baseUrl}/follow`, data, {
             headers: {
@@ -67,11 +76,12 @@ export default function MainProfile(props) {
                 <div className='mt-10'>
 
                     {props.edit === true ?
-                        <FaEdit size={30} onClick={() => navigate('/bioedit')} className='lg:h-[30.93px] md:h-[19.93px] h-[16px]' />
+                        <FaEdit size={30} onClick={() => dispatch(OpenBioEdit()) /*navigate('/bioedit')*/} className='lg:h-[30.93px] md:h-[19.93px] h-[16px]' />
                         : <></>
                     }
 
                 </div>
+                <TestEdit isOpen={isOpenEdit} />
             </div>
             <div className='font-normal text-xl leading-none flex text-black relative px-5 items-center gap-5 py-3'>
                 <div className='flex flex-row items-start gap-3'>

@@ -37,13 +37,14 @@ export const ViewUser = createAsyncThunk('profile/ViewUser', async (userid) => {
     return response.data;
 });
 
-export const updateUser = createAsyncThunk('profile/updateUser', async (userData) => {
+export const updateUser = createAsyncThunk('profile/updateUser ', async (userData) => {
     const response = await axios.put(`${baseUrl}/update/info`, userData, {
         headers: {
             'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
             'Content-Type': 'application/json'
         },
     });
+    console.log(response)
     return response.data;
 });
 

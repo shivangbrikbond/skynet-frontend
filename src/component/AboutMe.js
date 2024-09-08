@@ -1,11 +1,15 @@
 import React from 'react'
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import EditMe from './EditMe';
+import { useSelector, useDispatch } from 'react-redux';
+import { OpenEditMe, CloseEditMe } from '../slicer/ModelSlicer';
 
-function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, experience, githubURL, jobTitle, linkedInURL, phoneCode, phone, purpose, edit },) {
+function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, experience, githubURL, jobTitle, linkedInURL, phoneCode, phone, purpose, edit, tags }) {
     const navigate = useNavigate('')
+    const dispatch = useDispatch('')
 
-
+    const isEditMeOpen = useSelector((state) => state.model.isEditMeModelOpen);
 
     return (
         <div>
@@ -15,11 +19,12 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                         Personal Details
                     </h1>
                     {edit === true ?
-                        <FaEdit size={30} className={`${add_display} lg:h-[30.93px] md:h-[19.93px] h-[16px]`} onClick={() => navigate('/aboutme')} />
+                        <FaEdit size={30} className={`${add_display} lg:h-[30.93px] md:h-[19.93px] h-[16px]`} onClick={() => dispatch(OpenEditMe())} />
                         : <></>
                     }
 
                 </div>
+                <EditMe isOpen={isEditMeOpen} />
                 <div class="grid lg:grid-cols-2 grid-cols-1 gap-[25px] pt-6">
                     <div>
                         {/* <h5 class="text-xl font-semibold">Personal Details :</h5> */}
@@ -63,6 +68,12 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                                 <div class="flex-1">
                                     <h6 class="text-indigo-600 dark:text-white font-medium mb-0">Github :</h6>
                                     <p class="text-slate-400">{githubURL}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center mt-3">
+                                <div class="flex-1">
+                                    <h6 class="text-indigo-600 dark:text-white font-medium mb-0">Tags :</h6>
+                                    <p class="text-slate-400">{tags}</p>
                                 </div>
                             </div>
 

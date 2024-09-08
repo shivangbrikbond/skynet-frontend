@@ -9,7 +9,7 @@ const initialState = {
     message: '',
 }
 
-const baseUrl = process.env.REACT_APP_API_URL
+const baseUrl = process.env.REACT_APP_API_URL 
 
 export const fetchView = createAsyncThunk('profileView/fetchView', async () => {
     const email = localStorage.getItem('skyn_email')

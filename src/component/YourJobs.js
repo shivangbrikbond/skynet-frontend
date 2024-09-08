@@ -5,7 +5,7 @@ import SuggestionSection from '../component/SuggestionSection'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchView } from '../slicer/profileViewSlice';
 
-const YourJobs = ({ Title = 'People Viewd Your Profile', link }) => {
+const YourJobs = ({ Title = 'Profile Views', link }) => {
   const dispatch = useDispatch();
 
   const viewdata = useSelector((state) => state.profileview.views)
@@ -21,7 +21,7 @@ const YourJobs = ({ Title = 'People Viewd Your Profile', link }) => {
         style={{ maxHeight: '400px' }}
       >
         <Link to={link}>
-          <h2 className='pb-9 py-5 font-bold'>{Title}</h2></Link>
+          <h2 className='pb-9 py-5 px-4 font-bold'>{Title}</h2></Link>
 
         <div className='flex flex-col justify-start '>
 

@@ -10,7 +10,8 @@ const initialState = {
   register_status: 'idle'
 };
 
-const baseUrl = process.env.REACT_APP_API_URL
+
+const baseUrl = process.env.REACT_APP_API_URL 
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
@@ -24,6 +25,7 @@ export const registerUser = createAsyncThunk(
       const response = await axios.post(`${baseUrl}/register`, dataToSend);
       return response.data;
     } catch (error) {
+      console.log(error.response.data)
       return rejectWithValue(error.response.data);
     }
   }

@@ -25,8 +25,8 @@ export const createPost = createAsyncThunk('posts/createPost', async (postData) 
 });
 
 // Define the async thunk for fetching posts
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const user_id = localStorage.getItem('skyn_userId');
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (userId) => {
+  const user_id = userId;
   const pageNo = 1;
   const pageSize = 15;
   const response = await axios.get(`${baseUrl}/post/get/${user_id}/${pageNo}/${pageSize}`, {

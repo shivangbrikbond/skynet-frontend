@@ -9,6 +9,7 @@ import axios from 'axios';
 const Post = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.profile.profile);
 
   const [idArray, setIdArray] = useState([])
   const baseUrl = process.env.REACT_APP_API_URL
@@ -17,7 +18,9 @@ const Post = () => {
   const handleFollow = (id) => {
     const data = {
       followeeUserId: localStorage.getItem('skyn_userId'),
-      followerUserId: id
+      followerUserId: id,
+      name: profile.name,
+      picture: profile.profilePic
     }
     axios.post(`${baseUrl}/follow`, data, {
       headers: {

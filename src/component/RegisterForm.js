@@ -24,6 +24,7 @@ function RegisterForm() {
   const navigate = useNavigate();
 
   const [warn, setWarn] = useState(true);
+  const [pass, setPass] = useState(true);
 
   const dispatch = useDispatch();
   const status_register = useSelector((state) => state.auth.register_status);
@@ -31,6 +32,11 @@ function RegisterForm() {
   const message = useSelector((state) => state.auth.message)
   const [errormsg, setError] = useState('')
 
+  function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    console.log(emailRegex.test(email))
+    return emailRegex.test(email);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,10 +55,16 @@ function RegisterForm() {
     }
   }, [status_register])
 
+
   const enterOtp = async (e) => {
     e.preventDefault();
-    if (form.phone.length != 10) setWarn(false);
-    else setShowFirstComponent(false)
+    if (form.phone.length != 10 || form.name == "" || !validateEmail(form.email)) setWarn(false);
+    else if (form.confirmpassword != form.password) setPass(false)
+    else {
+      setWarn(true);
+      setPass(true);
+      setShowFirstComponent(false);
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -300,10 +312,6 @@ function RegisterForm() {
                 onChange={handleChange}
                 required
               />
-              {warn == false && <div class="warning-msg">
-                <i class="fa fa-warning"></i>
-                Incorrect value.
-              </div>}
               <select
                 name="purpose"
                 value={form.purpose}
@@ -342,6 +350,14 @@ function RegisterForm() {
 
               <button type="submit" onClick={enterOtp}>Submit</button>
             </form>
+            {warn == false && <div class="warning-msg">
+              <i class="fa fa-warning"></i>
+              Please input correct values.
+            </div>}
+            {pass == false && <div class="warning-msg">
+              <i class="fa fa-warning"></i>
+              Confirm password doesn't match.
+            </div>}
             {errormsg === 'loading' && <div class="info-msg">
               <i class="fa fa-info-circle"></i>
               Give us time to process.

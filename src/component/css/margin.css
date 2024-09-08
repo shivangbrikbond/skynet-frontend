@@ -9,3 +9,15 @@
         margin-left: 0%;
     }
 }
+
+@media (min-width: 1024px) {
+    .marginNoti {
+        margin-left: 15%;
+    }
+}
+
+@media (max-width: 767px) {
+    .marginNoti {
+        margin-left: 0%;
+    }
+}

@@ -8,7 +8,7 @@ const initialState = {
     message: ''
 };
 
-const baseUrl = process.env.REACT_APP_API_URL
+const baseUrl = process.env.REACT_APP_API_URL 
 
 export const UpdateAboutme = createAsyncThunk('search/featchSuggestion', async () => {
     const user_id = localStorage.getItem('skyn_userId')

@@ -10,10 +10,11 @@ import MainProfile from '../component/MainProfile';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser, ViewUser } from '../slicer/profileSlice'
 import AboutMe from '../component/AboutMe';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function UserPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate('')
 
     const { id } = useParams();
 
@@ -28,6 +29,10 @@ function UserPage() {
     useEffect(() => {
         dispatch(ViewUser(id))
     }, [dispatch]);
+
+    const navigatePost = () => {
+        navigate(`/post/${id}`)
+    }
 
     return (
         <div className='py-9 grid grid-cols-11 max-md:grid-cols-6 px-3 gap-2 justify-evenly' style={{ marginTop: '60px' }}>
@@ -47,7 +52,7 @@ function UserPage() {
                                 </>
                                 : <>
                                     <Post user_name={user['name']} posted_date={postArr.date} caption={postArr?.caption} like_count={postArr?._count['like']} comment_count={postArr?._count['comment']} post_id={postArr?.id} mediaLink={postArr?.mediaLink} profilePic={user.profilePic} landmark={postArr?.landmark} like={postArr?.like} />
-                                    <p style={{ margin: 'auto 0 auto 60%' }}>View All Posts</p>
+                                    <button onClick={navigatePost} style={{ margin: 'auto 0 auto 60%' }}><p>View All Posts</p></button>
                                 </>
                         }
 

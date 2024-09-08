@@ -2,12 +2,14 @@ import React from 'react';
 import avatar from "../asset/avtar.png";
 import { useNavigate } from 'react-router-dom';
 import { GoPlusCircle } from "react-icons/go";
+import { useSelector } from 'react-redux';
 
 
 const Newpost = () => {
     const navigate = useNavigate('');
 
-    const picture = localStorage.getItem('profile_pic')
+    const profile = useSelector((state) => state.profile.profile);
+    const picture = profile.profilePic
 
     return (
         <div className='relative bg-[#F8D99D] lg:w-[100%] md:w-[80%] w-[100%]  h-[101px] rounded-md shadow-md'

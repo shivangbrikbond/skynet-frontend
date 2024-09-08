@@ -8,7 +8,7 @@ const initialState = {
     error: null
 }
 
-const baseUrl = process.env.REACT_APP_API_URL
+const baseUrl = process.env.REACT_APP_API_URL 
 
 export const sendOtp = createAsyncThunk('otp/sendotp', async (otpcode) => {
     const response = await axios.post('', {

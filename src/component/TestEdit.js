@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { CiSquareRemove } from "react-icons/ci";
+import { useSelector, useDispatch } from 'react-redux'
+import { CloseBioEdit } from '../slicer/ModelSlicer';
 import { fetchUser, updateInfo, updateUser } from '../slicer/profileSlice';
-import { useEffect } from 'react';
 import axios from 'axios';
 import AWS from 'aws-sdk';
 import { useNavigate } from 'react-router-dom';
 import Resizer from 'react-image-file-resizer';
+import { IoMdAddCircle } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
 
-function BioEdit() {
+function TestEdit({ isOpen }) {
+  if (!isOpen) return null;
+
+  const dispatch = useDispatch();
+
 
   const [summary, setSummary] = useState('')
   const [aspirations, setAspirations] = useState('')
@@ -21,7 +28,7 @@ function BioEdit() {
   const status = useSelector((state) => state.auth.status);
   const navigate = useNavigate()
 
-  const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
@@ -86,6 +93,7 @@ function BioEdit() {
         dispatch(updateInfo(formData))
         if (status === 'succeeded') {
           navigate('/profile')
+          dispatch(CloseBioEdit())
         }
       }
       else {
@@ -107,6 +115,7 @@ function BioEdit() {
           if (status === 'succeeded') {
             localStorage.setItem('profile_pic', `https://skynect.s3.amazonaws.com/${params.Key}`)
             navigate('/profile')
+            dispatch(CloseBioEdit())
           }
         })
       }
@@ -135,71 +144,75 @@ function BioEdit() {
     window.location.reload()
   }
 
+
+
   return (
-    <div className='flex justify-center items-center w-[100%]' style={{ margin: '0% auto auto auto' }}>
-      <div className="register w-[100%]" style={{
-        maxWidth: '650px'
-      }}>
-        <form className='w-[100%]'>
-          <h5 className='register-heading lg:text-[25px] md:text-[20px] text-[18px] lg:w-[219px] md:w-[200px] w-[190px]' style={{ minWidth: '219px' }}> Edit Profile :</h5>
-          <br />
-          {/* <img src={profilePic} style={{ borderColor: 'grey', borderWidth: '2px' }}></img> */}
-          <div className='w-[140px] h-[140px] ' style={{ position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
-            <img src={profilePic} alt="profileimage"
-              style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
-          </div>
-          <input className='h-[58px]' placeholder='Choose Photo' type="file" onChange={handlePictureChange} />
-          <br />
-          <label for='aspiration' className='text-[30px]'>Tagline :
-            <textarea
-              type="text"
-              name="aspiration"
-              value={aspirations}
-              className='lg:w-[500px] md:w-[400px] w-[320px]'
-              onChange={(e) => setAspirations(e.target.value)}
-              // placeholder="Enter Your Tagline"
-              style={{
-                maxWidth: '500px'
-              }}
-            />
-          </label>
-          <label for='summary' className='text-[30px]'>Summary :
-            <textarea
-              type="text"
-              name="summary"
-              // placeholder="Enter Your Summary"
-              className='lg:w-[500px] md:w-[400px] w-[320px]'
-              style={{ height: '100px', maxWidth: '500px' }}
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
-            /></label>
-          <br />
-          {
-            msg === 'Loading'
-              ? <><div class="info-msg">
-                <i class="fa fa-info-circle"></i>
-                &nbsp;Give us time to process.
-              </div></>
-              : <></>}
-          {
-            msg === 'Error'
-              ? <><div class="error-msg">
-                <i class="fa fa-times-circle"></i>
-                Something went wrong.
-              </div></>
-              : <></>
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <div className='flex justify-between items-center'>
+          <p className='text-2xl font-semibold'>BioEdit</p>
+          <CiSquareRemove size={34} onClick={() => dispatch(CloseBioEdit())} />
+        </div>
+        <div>
+          <form onSubmit={handleSubmit} >
+            <div className="relative flex items-center justify-center">
+              {/* <img src={profilePic} className="rounded-full w-24 h-auto" alt="Profile" /> */}
+              <div className='w-[80px] h-[80px] ' style={{ marginTop: '4px', position: 'relative', overflow: 'hidden', borderRadius: '50%' }}>
+                <img src={profilePic} alt="profileimage"
+                  style={{ display: 'inline', margin: 'auto', height: 'auto', width: '100%' }} />
+              </div>
 
-          }
-          <div className='flex flex-row justify-evenly gap-10'>
+              <label
+                htmlFor="file-upload"
+                className="absolute top-0 transform translate-x-1/2 -translate-y-1/2 text-blue-500 bg-white rounded-full p-1 cursor-pointer"
+              >
+                <IoMdAddCircle size={34} className="pointer-events-none" />
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
+                  onChange={handlePictureChange}// Add your file upload handler here
+                />
+              </label>
+            </div>
 
-            <button type="submit" onClick={handleSubmit}>{submitButton}</button>
-            <button type="cancel" onClick={handleCancel}>{cancelButton}</button>
-          </div>
-        </form>
+            <div className='pt-5'>
+              <p className='py-3 text-base font-medium'>Tagline :</p>
+              <textarea className="w-full rounded-lg border-2 border-black" value={aspirations}
+                onChange={(e) => setAspirations(e.target.value)} />
+
+            </div>
+            <div className='pt-5'>
+              <p className='py-3 text-base font-medium'>Summary :</p>
+              <textarea className="w-full rounded-lg border-2 border-black" value={summary}
+                onChange={(e) => setSummary(e.target.value)} />
+            </div>
+            {
+              msg === 'Loading'
+                ? <><div class="info-msg">
+                  <i class="fa fa-info-circle"></i>
+                  &nbsp;Give us time to process.
+                </div></>
+                : <></>}
+            {
+              msg === 'Error'
+                ? <><div class="error-msg">
+                  <i class="fa fa-times-circle"></i>
+                  Something went wrong.
+                </div></>
+                : <></>
+
+            }
+            <div className='pt-5'>
+              <button className='w-full bg-blue-500 text-white py-3 mt-3 rounded-lg' type='submit' >Save</button>
+              <button className='w-full bg-red-500 text-white py-3 mt-3 rounded-lg' onClick={() => dispatch(CloseBioEdit())} >Cancel</button>
+            </div>
+          </form>
+        </div>
 
       </div>
     </div>
   )
 }
 
-export default BioEdit
+export default TestEdit
