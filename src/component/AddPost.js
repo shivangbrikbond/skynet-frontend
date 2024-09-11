@@ -118,7 +118,7 @@ function AddPost() {
 
   return (
 
-    <div className=''>
+    <div className='' style={{ marginTop: '60px' }}>
       <div class="container mx-auto p-4 flex items-center justify-center h-full">
         <div class="max-w-[350px] w-full">
 

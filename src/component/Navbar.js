@@ -22,7 +22,7 @@ const Navbar = ({ activeButton, setActiveButton }) => {
   const dispatch = useDispatch();
   const prevLocation = useRef(location.pathname);
 
-  const picture = profile.profilePic
+  const picture = localStorage.getItem('profile_pic')
 
 
   const handleSearchChange = (name) => {
@@ -50,7 +50,9 @@ const Navbar = ({ activeButton, setActiveButton }) => {
       break;
   }
   return (
-    <div className="w-screen h-screen flex flex-col overflow-x-hidden bg-[#F5F5F5]">
+    <div className="w-screen h-screen flex flex-col overflow-x-hidden bg-[#F5F5F5]"
+      style={{ fontFamily: 'Source Sans Pro' }}
+    >
 
       <div className={`flex justify-between items-center shadow-md w-full h-[70px] py-1  ${NavBg} fixed`}
         style={{ filter: 'drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25))', overflow: 'visible', zIndex: '2' }}

@@ -23,6 +23,7 @@ export const fetchUser = createAsyncThunk('profile/fetchProfile', async () => {
             'Content-Type': 'application/json'
         }
     });
+    localStorage.setItem('profile_pic', response.data.body.profilePic)
     return response.data;
 });
 

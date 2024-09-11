@@ -3,6 +3,7 @@ import { SlArrowDown } from "react-icons/sl";
 import '../component/css/search.css';
 import { useSelector, useDispatch } from "react-redux";
 import { featchSearch, setSector, setexpirence, setTag } from "../slicer/searchSlice";
+import { cities } from "./Cities";
 
 function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValue }) {
     const [selectedValue1, setSelectedValue1] = useState('');
@@ -81,12 +82,16 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
                     className={`${display_3} justify-between items-center px-4 py-2 `}
                     id="filter-jobtype"
                 >
+
                     Tags
                 </button>
                 <select
                     onChange={(e) => { dispatch(setTag(e.target.value)); dispatch(featchSearch()) }}
                     className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg appearance-none px-4 py-2"
                     aria-labelledby="filter-jobtype">
+                    {/* <option value="" disabled style={{ color: 'grey' }}>
+                        all
+                    </option> */}
                     {options3.map((option, index) => (
                         <option key={index} value={option}>#{option}</option>
                     ))}
@@ -105,8 +110,11 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
                     onChange={(e) => dispatch(setTag(e.target.value))}
                     className="absolute top-full left-0 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg appearance-none px-4 py-2"
                     aria-labelledby="filter-jobtype">
-                    {options3.map((option, index) => (
-                        <option key={index} value={option}>{option}</option>
+                    <option value="" disabled style={{ color: 'grey' }}>
+                        Choose City
+                    </option>
+                    {cities.map((option, index) => (
+                        <option key={index} value={option} >{option}</option>
                     ))}
                 </select>
             </div>

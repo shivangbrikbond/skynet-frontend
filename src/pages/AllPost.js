@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Post from '../component/Post';
 import { useOutletContext, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPosts } from '../slicer/postSlicer'
+import { fetchUserPosts } from '../slicer/postSlicer'
 import '../component/css/margin.css'
 
 export default function AllPost() {
@@ -19,7 +19,7 @@ export default function AllPost() {
 
 
     useEffect(() => {
-        dispatch(fetchPosts(userId))
+        dispatch(fetchUserPosts(userId))
 
     }, [dispatch])
 
