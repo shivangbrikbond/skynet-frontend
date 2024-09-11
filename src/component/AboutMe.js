@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import EditMe from './EditMe';
 import { useSelector, useDispatch } from 'react-redux';
 import { OpenEditMe, CloseEditMe } from '../slicer/ModelSlicer';
+import { CiHashtag } from "react-icons/ci";
 
 function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, experience, githubURL, jobTitle, linkedInURL, phoneCode, phone, purpose, edit, tags }) {
     const navigate = useNavigate('')
@@ -71,9 +72,15 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                                 </div>
                             </div>
                             <div class="flex items-center mt-3">
-                                <div class="flex-1">
+                                <CiHashtag size={25} color=' rgb(148 163 184)' strokeWidth={1} />
+                                <div class="flex-1 px-3">
                                     <h6 class="text-indigo-600 dark:text-white font-medium mb-0">Tags :</h6>
-                                    <p class="text-slate-400">{tags}</p>
+                                    <p class="text-slate-400">{
+                                        tags ? Object.values(tags).map((data) => {
+                                            return (<>{data}<br /></>)
+                                        })
+                                            : <></>
+                                    }</p>
                                 </div>
                             </div>
 

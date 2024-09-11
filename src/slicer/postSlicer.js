@@ -38,6 +38,19 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (userId) =>
   return response.data;
 });
 
+export const fetchUserPosts = createAsyncThunk('posts/fetchPosts', async (userId) => {
+  const user_id = userId;
+  const pageNo = 1;
+  const pageSize = 15;
+  const response = await axios.get(`${baseUrl}/post/get/user/${user_id}/${pageNo}/${pageSize}`, {
+    headers: {
+      'authorization': 'Bearer ' + localStorage.getItem('skyn_token'),
+      'Content-Type': 'application/json'
+    }
+  });
+  return response.data;
+});
+
 // Define the async thunk for liking a post
 export const likePost = createAsyncThunk('posts/likePost', async (data) => {
   const response = await axios.post(`${baseUrl}/like/create`, data, {

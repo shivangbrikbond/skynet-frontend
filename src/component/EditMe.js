@@ -4,6 +4,7 @@ import { fetchUser, updateUser } from '../slicer/profileSlice';
 import { useNavigate } from 'react-router-dom';
 import { CloseEditMe } from '../slicer/ModelSlicer';
 import { MdCancel } from "react-icons/md";
+import { cities } from './Cities';
 
 
 function EditMe({ isOpen }) {
@@ -153,14 +154,21 @@ function EditMe({ isOpen }) {
             <option value="INVESTOR">Investor</option>
             <option value="NETWORK">Network</option>
           </select>
-          <input
+          <select
             className="w-full my-1 border-2 border-black rounded-lg"
             type='text'
             name='city'
             placeholder='Enter your city'
             value={city}
             onChange={(e) => setCity(e.target.value)}
-          />
+          >
+            <option value="" disabled style={{ color: 'grey' }}>
+              Choose City
+            </option>
+            {cities.map((option, index) => (
+              <option key={index} value={option} >{option}</option>
+            ))}
+          </select>
           <input
             className="w-full my-1 border-2 border-black rounded-lg"
             type='text'

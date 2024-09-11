@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../slicer/authSlicer'
 import { useNavigate } from 'react-router-dom'
+import { cities } from './Cities';
 
 function RegisterForm() {
   const [showFirstComponent, setShowFirstComponent] = useState(true);

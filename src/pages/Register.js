@@ -15,7 +15,7 @@ function Register() {
       <RegisterForm />
 
       <a className="login-link pb-24" onClick={() => navigate('/login')} href="#">
-        Alredy have an account
+        Already have an account
       </a>
 
     </div>
