@@ -94,7 +94,6 @@ function EditMe({ isOpen }) {
   const addTags = (text) => {
     setTags((prevTags) => {
       // Check if the tag already exists in the previous state
-      console.log(prevTags)
       if (prevTags != [] && prevTags != "" && !prevTags.some(tag => tag === text)) {
         const newTag = text;
         return [...prevTags, newTag];
