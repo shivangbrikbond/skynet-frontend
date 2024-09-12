@@ -190,7 +190,7 @@ function EditMe({ isOpen }) {
             <div className="w-full min-h-[68px] max-h-auto  rounded-lg border-2 border-black">
               <div className='flex flex-wrap'>
                 {
-                  Tags.map((data) => {
+                  Tags?.map((data) => {
                     console.log(data.texts)
                     return (
                       <div className="px-2 py-1 bg-gray-200 m-1 flex justify-center items-center gap-2" >
@@ -204,7 +204,7 @@ function EditMe({ isOpen }) {
             </div>
             <div className="flex flex-wrap mt-3">
               {
-                Tags_list.map((data) => {
+                Tags_list?.map((data) => {
 
                   return (
                     <div className="px-2 py-1 bg-gray-200 m-1 " onClick={() => addTags(data)} >
