@@ -71,7 +71,7 @@ function AboutMe({ add_display = 'flex', aboutJobTitle, aboutYou, city, email, e
                                     <p class="text-slate-400">{githubURL}</p>
                                 </div>
                             </div>
-                            <div class="flex items-center mt-3">
+                            <div class="flex mt-3">
                                 <CiHashtag size={25} color=' rgb(148 163 184)' strokeWidth={1} />
                                 <div class="flex-1 px-3">
                                     <h6 class="text-indigo-600 dark:text-white font-medium mb-0">Tags :</h6>

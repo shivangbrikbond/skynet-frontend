@@ -1001,7 +1001,6 @@ export const cities = [
     "Srinagar",
     "Srinivaspur",
     "Srirampore",
-    "Srisailam Project (Right Flank Colony) Township",
     "Srivilliputhur",
     "Sugauli",
     "Sujangarh",
