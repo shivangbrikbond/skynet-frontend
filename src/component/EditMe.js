@@ -222,17 +222,17 @@ function EditMe({ isOpen }) {
                 <option value="" disabled selected>General Tags</option>
                 {
                   tagsConst[purpose]?.map((data) => (
-                    <option key={data} value={data}>{data}</option>
+                    <option key={data} value={data}>#{data}</option>
                   ))
                 }
                 {
                   tagsConst['Networking and Collaboration Hashtags']?.map((data) => (
-                    <option key={data} value={data}>{data}</option>
+                    <option key={data} value={data}>#{data}</option>
                   ))
                 }
                 {
                   tagsConst['Location-specific']?.map((data) => (
-                    <option key={data} value={data}>{data}</option>
+                    <option key={data} value={data}>#{data}</option>
                   ))
                 }
               </select>
@@ -243,7 +243,7 @@ function EditMe({ isOpen }) {
                 <option value="" disabled selected>Sector Tags</option>
                 {
                   tagsConst['Sector-Specific Hashtags']?.map((data) => (
-                    <option key={data} value={data}>{data}</option>
+                    <option key={data} value={data}>#{data}</option>
                   ))
                 }
 
