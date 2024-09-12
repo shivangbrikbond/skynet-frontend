@@ -324,13 +324,13 @@ function RegisterForm() {
                 </option>
                 <option value="STUDENT">Student</option>
                 <option value="ENTREPRENEUR">Entrepreneur</option>
-                <option value="BUSINESS">Business</option>
-                <option value="SERVICE_PROVIDER">Service Provider</option>
-                <option value="FREELANCER">Freelancer</option>
+                <option value="STARTUP">Startup</option>
+                <option value="LEGALITIES">Legalities</option>
+                <option value="INFLUENCER">Influencer</option>
                 <option value="EMPLOYEE">Employee</option>
                 <option value="RECRUITER">Recruiter</option>
                 <option value="INVESTOR">Investor</option>
-                <option value="NETWORK">Network</option>
+                <option value="MARKETING">Marketing</option>
               </select>
               <input
                 type="password"

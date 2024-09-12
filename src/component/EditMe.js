@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { CloseEditMe } from '../slicer/ModelSlicer';
 import { MdCancel } from "react-icons/md";
 import { cities } from './Cities';
+import { tagsConst } from './Tags';
 
 
 function EditMe({ isOpen }) {
@@ -146,13 +147,13 @@ function EditMe({ isOpen }) {
             </option>
             <option value="STUDENT">Student</option>
             <option value="ENTREPRENEUR">Entrepreneur</option>
-            <option value="BUSINESS">Business</option>
-            <option value="SERVICE_PROVIDER">Service Provider</option>
-            <option value="FREELANCER">Freelancer</option>
+            <option value="STARTUP">Startup</option>
+            <option value="LEGALITIES">Legalities</option>
+            <option value="FREELANCER">Influencer</option>
             <option value="EMPLOYEE">Employee</option>
             <option value="RECRUITER">Recruiter</option>
             <option value="INVESTOR">Investor</option>
-            <option value="NETWORK">Network</option>
+            <option value="NETWORK">Marketing</option>
           </select>
           <select
             className="w-full my-1 border-2 border-black rounded-lg"
@@ -187,24 +188,66 @@ function EditMe({ isOpen }) {
           />
           <div className='pt-3'>
             <p className='py-3 text-base font-medium'>Tags :</p>
-            <div className="w-full min-h-[68px] max-h-auto  rounded-lg border-2 border-black">
+            <div className="w-full min-h-[150px] max-h-auto  rounded-lg border-2 border-black">
               <div className='flex flex-wrap'>
                 {
-                  Tags?.map((data) => {
-                    console.log(data.texts)
-                    return (
-                      <div className="px-2 py-1 bg-gray-200 m-1 flex justify-center items-center gap-2" >
-                        <p className=" text-sm">{data}</p>
-                        <MdCancel className="" onClick={() => removeTags(data)} />
-                      </div>
-                    )
-                  })
+                  Tags.length > 0
+                    ? Tags.map((data) => {
+                      console.log(data.texts)
+                      return (
+                        <div className="px-2 py-1 bg-gray-200 m-1 flex justify-center items-center gap-2" >
+                          <p className=" text-sm">{data}</p>
+                          <MdCancel className="" onClick={() => removeTags(data)} />
+                        </div>
+                      )
+                    })
+                    : <></>
                 }
               </div>
             </div>
-            <div className="flex flex-wrap mt-3">
+            {
+              Tags.length >= 6
+                ? <p style={{ color: "red" }}>Cannot add more than five tags.</p>
+                : <></>
+            }
+            <div className="flex flex-row mt-3">
+              <select
+                className="w-[150px] py-2 bg-white border border-gray-300 rounded-lg focus:outline-none"
+                onChange={(e) => addTags(e.target.value)}
+              >
+                <option value="" disabled selected>General Tags</option>
+                {
+                  tagsConst[purpose]?.map((data) => (
+                    <option key={data} value={data}>{data}</option>
+                  ))
+                }
+                {
+                  tagsConst['Networking and Collaboration Hashtags']?.map((data) => (
+                    <option key={data} value={data}>{data}</option>
+                  ))
+                }
+                {
+                  tagsConst['Location-specific']?.map((data) => (
+                    <option key={data} value={data}>{data}</option>
+                  ))
+                }
+              </select>
+              <select
+                className="w-[150px] py-2 bg-white border border-gray-300 rounded-lg focus:outline-none"
+                onChange={(e) => addTags(e.target.value)}
+              >
+                <option value="" disabled selected>Sector Tags</option>
+                {
+                  tagsConst['Sector-Specific Hashtags']?.map((data) => (
+                    <option key={data} value={data}>{data}</option>
+                  ))
+                }
+
+              </select>
+            </div>
+            {/* <div className="flex flex-wrap mt-3">
               {
-                Tags_list?.map((data) => {
+                tagsConst[purpose]?.map((data) => {
 
                   return (
                     <div className="px-2 py-1 bg-gray-200 m-1 " onClick={() => addTags(data)} >
@@ -213,7 +256,7 @@ function EditMe({ isOpen }) {
                   )
                 })
               }
-            </div>
+            </div> */}
           </div>
           <input
             className="w-full my-1 border-2 border-black rounded-lg"
