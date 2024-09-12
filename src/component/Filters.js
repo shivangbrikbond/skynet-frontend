@@ -95,17 +95,17 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
                     </option>
                     {
                         tagsConst[sector]?.map((data) => (
-                            <option key={data} value={data}>{data}</option>
+                            <option key={data} value={data}>#{data}</option>
                         ))
                     }
                     {
                         tagsConst['Networking and Collaboration Hashtags']?.map((data) => (
-                            <option key={data} value={data}>{data}</option>
+                            <option key={data} value={data}>#{data}</option>
                         ))
                     }
                     {
                         tagsConst['Location-specific']?.map((data) => (
-                            <option key={data} value={data}>{data}</option>
+                            <option key={data} value={data}>#{data}</option>
                         ))
                     }
                 </select>
@@ -128,7 +128,7 @@ function Filters({ display_1, display_2 = 'flex', display_3 = 'flex', sectorValu
                     </option>
                     {
                         tagsConst['Sector-Specific Hashtags']?.map((data) => (
-                            <option key={data} value={data}>{data}</option>
+                            <option key={data} value={data}>#{data}</option>
                         ))
                     }
                 </select>
